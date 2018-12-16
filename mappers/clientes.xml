@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="clientes">
+  <INSERT id="insertClient">
+    INSERT INTO clientes
+    (
+    nombre,
+    apellido_pat,
+    apellido_mat,
+    correo_elect
+    )
+    VALUES
+    ('#{nombre}', '#{apellidoPat}', '#{apellidoMat}', '#{correo}');
+  </INSERT>
+</mapper>
