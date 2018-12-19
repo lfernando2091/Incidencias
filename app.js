@@ -8,6 +8,8 @@ const logger = require('morgan');
 const fs = require('fs');
 //csrf for request
 const csrf = require('csurf');
+//Apply gzip compression for all request
+const compression = require('compression');
 /*Call Mappers Controller*/
 const mappers = require('./lib/mappers.js');
 mappers.loadMapper('login');
@@ -87,6 +89,8 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(csrf({ cookie: true }));
+
+app.use(compression());
 
 app.use(flash());
 
