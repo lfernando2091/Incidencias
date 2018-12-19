@@ -63,6 +63,15 @@
                                                 </button>
                                             </div>
 
+                                            <% if (flash != null){ %>
+                                            <% flash.forEach(function(message){ %>
+                                                <div class="uk-alert-danger" uk-alert>
+                                                    <a href="#" class="uk-alert-close"></a>
+                                                    <p><%= message %></p>
+                                                </div>
+                                            <% })%> 
+                                            <% } %>  
+
                                             <hr />
 
                                             <center>

@@ -9,8 +9,6 @@ const fs = require('fs');
 /*Call Mappers Controller*/
 const mappers = require('./lib/mappers.js');
 mappers.loadMapper('login');
-mappers.setNameSpace('login');
-
 /**
  * Express bcrypt for sometext
  */
@@ -130,7 +128,7 @@ passport.use(new LocalStrategy(
         usuario : username
     } 
     // create the connection to database
-    MySql.createConnection(options).query(mappers.onQuery('authenticate',param), function (error, results, fields) {
+    MySql.createConnection(options).query(mappers.onQuery('login','authenticate',param), function (error, results, fields) {
         if (error) return done(err); 
         users = results;      
         if (results.length==0)

@@ -53,7 +53,7 @@
                                             <div class="uk-margin">
                                                 <div class="uk-position-relative">
                                                     <span class="uk-form-icon ion-android-person"></span>
-                                                    <input name="email" class="uk-input" type="email" placeholder="Email">
+                                                    <input name="email" class="uk-input" type="email" placeholder="Email" value='<%= email %>'>
                                                 </div>
                                             </div>
 
@@ -77,12 +77,14 @@
                                                 </button>
                                             </div>
 
+                                            <% if (flash != null){ %>
                                             <% flash.forEach(function(message){ %>
                                                 <div class="uk-alert-danger" uk-alert>
                                                     <a href="#" class="uk-alert-close"></a>
                                                     <p><%= message %></p>
                                                 </div>
-                                            <% })%>                                            
+                                            <% })%> 
+                                            <% } %>                                            
 
                                             <hr />
 

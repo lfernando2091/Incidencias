@@ -8,6 +8,7 @@ CREATE TABLE usuario(
 	pkey INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
 	usuario TEXT NOT NULL,
 	tipo ENUM('admin', 'usuario') DEFAULT 'usuario',
+	email TEXT NOT NULL,
 	token TEXT NOT NULL,
 	estatus ENUM('activo', 'inactivo') DEFAULT 'activo',
 	fecha_registro TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
