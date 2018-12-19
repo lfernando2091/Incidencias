@@ -75,7 +75,7 @@ const sessionStore = new MySQLStore(options);
 
 var app = express();
 
-const secretKey = 'secret-key-api-change-in-production';
+const secretKey = '{Luis}*[Fernando2091]/@/';
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -99,7 +99,7 @@ app.use(
     session(
         {
             store: sessionStore,
-            key: 'mitienda',
+            key: 'My[Protectional*xPW2j}4Pass0/',
             secret: secretKey, 
             genid: (req) => {
               return uuid() // use UUIDs for session IDs
@@ -136,7 +136,7 @@ passport.use(new LocalStrategy(
         if (results.length==0)
           return done(null, false, { message: 'Usuario no registrado.' }); 
         if(!bcrypt.compareSync(password, results[0].Token)) 
-          return done(null, false, { message: 'Incorrect username o password.' }); 
+          return done(null, false, { message: 'Usuario y contraseña incorrectos.' }); 
         return done(null, results[0]);             
     });    
   }
@@ -175,9 +175,12 @@ app.use(bodyParser.json())
 require('./lib/routes.js')(app, passport);
 
 app.use(function (req, res) {
+  /*
   res.setHeader('Content-Type', 'text/plain')
-  res.write('you posted:\n')
-  res.end(JSON.stringify(req.body, null, 2))
+  res.write('Sorry that page not exist:\n')
+  res.end(JSON.stringify("Error 404", null, 2))
+  */
+  res.render('404', { status: 404, title: 'Error 404' });
 })
 
 // catch 404 and forward to error handler
@@ -195,5 +198,7 @@ app.use(function(err, req, res, next) {
   res.status(err.status || 500);
   res.render('error');
 });
+
+//app.listen(8080);
 
 module.exports = app;
