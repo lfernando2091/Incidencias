@@ -63,6 +63,8 @@
                                                 </button>
                                             </div>
 
+                                            <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+
                                             <% if (flash != null){ %>
                                             <% flash.forEach(function(message){ %>
                                                 <div class="uk-alert-danger" uk-alert>

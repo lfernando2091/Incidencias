@@ -6,6 +6,8 @@ const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const fs = require('fs');
+//csrf for request
+const csrf = require('csurf');
 /*Call Mappers Controller*/
 const mappers = require('./lib/mappers.js');
 mappers.loadMapper('login');
@@ -84,6 +86,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(csrf({ cookie: true }));
 
 app.use(flash());
 
