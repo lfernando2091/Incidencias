@@ -9,10 +9,12 @@
         <meta name="author" content="Luis Fernando Hernández Méndez">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-        <link rel="stylesheet" href="css/uikit.min.css" />
-		<link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
-		<link rel="stylesheet" href="css/style.css" />
-        <link rel="stylesheet" href="css/notyf.min.css" />
+        <link rel="stylesheet" type="text/css" href="css/uikit.min.css" />
+		<link rel="stylesheet" type="text/css" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+		<link rel="stylesheet" type="text/css" href="css/style.css" />
+        <link rel="stylesheet" type="text/css" href="css/notyf.min.css" />
+        <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.0.0-beta.35/css/uikit.min.css">
+        <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css">
     </head>
     <body>
         <div uk-sticky class="uk-navbar-container tm-navbar-container uk-active">
@@ -87,20 +89,35 @@
         <%- include('./menu/periodo'); -%>
         <% } %>
         <!-- End Content -->
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>        <script src="js/uikit.min.js" ></script>
+        
+        <!-- JQuery -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+
+        <% if(content == 'periodo'){ %>
+        <!-- Data Tables -->
+        <script type="text/javascript" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+        <script type="text/javascript" src="https://cdn.datatables.net/1.10.19/js/dataTables.uikit.min.js"></script>
+        <script type="text/javascript" src="js/data-table.js"></script>
+        <% } %>
+
+        <script type="text/javascript" src="js/uikit.min.js" ></script>
         <!-- Uikit Icons -->
-        <script src="js/uikit-icons.min.js" ></script>
+        <script type="text/javascript" src="js/uikit-icons.min.js" ></script>
+        <% if(content == 'dashboard'){ %>
 		<!-- Load More Javascript -->
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.0/Chart.min.js" integrity="sha256-UGwvyUFH6Qqn0PSyQVw4q3vIX0wV1miKTracNJzAWPc=" crossorigin="anonymous"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.transit/0.9.12/jquery.transit.min.js" integrity="sha256-rqEXy4JTnKZom8mLVQpvni3QHbynfjPmPxQVsPZgmJY=" crossorigin="anonymous"></script>
-		<script src="js/notyf.min.js"></script>
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.0/Chart.min.js" integrity="sha256-UGwvyUFH6Qqn0PSyQVw4q3vIX0wV1miKTracNJzAWPc=" crossorigin="anonymous"></script>
+        <% } %>
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery.transit/0.9.12/jquery.transit.min.js" integrity="sha256-rqEXy4JTnKZom8mLVQpvni3QHbynfjPmPxQVsPZgmJY=" crossorigin="anonymous"></script>
+		<script type="text/javascript" src="js/notyf.min.js"></script>
 		<!-- Required Overall Script -->
-        <script src="js/script.js"></script>
+        <script type="text/javascript" src="js/script.js"></script>
 		<!-- Status Updater -->
-		<script src="js/status.js"></script>
+		<script type="text/javascript" src="js/status.js"></script>
+        <% if(content == 'dashboard'){ %>
 		<!-- Sample Charts -->
-		<script src="js/charts.js"></script>
+		<script type="text/javascript" src="js/charts.js"></script>
+        <% } %>
 		<!-- Sample Notifications -->
-		<script src="js/notification.js"></script>
+		<script type="text/javascript" src="js/notification.js"></script>
     </body>
 </html>

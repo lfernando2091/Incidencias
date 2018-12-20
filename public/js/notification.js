@@ -2,5 +2,5 @@
 var notyf = new Notyf();
 
 setTimeout(function() {
-	notyf.confirm('Welcome to UI Admin!!');
+	notyf.confirm('Welcome to Luis Fernando!!');
 }, 500);
