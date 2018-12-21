@@ -48,4 +48,8 @@
         ('${nombre}', '${clave}')
     </insert>
 
+    <update id="actualizarPeriodo">
+        UPDATE periodo SET nombre = '${nombre}', clave = '${clave}'
+    </update>
+
 </mapper>
