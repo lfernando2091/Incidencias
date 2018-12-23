@@ -6,3 +6,7 @@ function onTableDataEdit(e)
 	for (var key in data) 
 	   $("#" + key).val(data[key]);
 }
+
+function onCancelModal(){
+	$(".data-edition-area").val("");
+}

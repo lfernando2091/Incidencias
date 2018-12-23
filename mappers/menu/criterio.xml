@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="periodo">
+<mapper namespace="criterio">
 
   <select id="catalogo">
     SELECT
@@ -9,7 +9,7 @@
       clave Clave,
       estatus Estatus
     FROM
-      periodo
+      criterio
     WHERE
       estatus = 'activo'
   </select>
@@ -21,7 +21,7 @@
       clave Clave,
       estatus Estatus
     FROM
-      periodo
+      criterio
     WHERE
       pkey = ${id} AND estatus = 'activo'
   </select>
@@ -33,13 +33,13 @@
       clave Clave,
       estatus Estatus
     FROM
-      periodo
+      criterio
     WHERE
       pkey = ${id}
   </select>
 
   <insert id="agregar">
-        INSERT INTO periodo
+        INSERT INTO criterio
         (
         nombre,
         clave
@@ -49,11 +49,11 @@
     </insert>
 
   <update id="actualizar">
-      UPDATE periodo SET nombre = '${nombre}', clave = '${clave}' WHERE pkey=${id}
+      UPDATE criterio SET nombre = '${nombre}', clave = '${clave}' WHERE pkey=${id}
   </update>
 
   <update id="eliminar">
-      UPDATE periodo SET estatus = 'inactivo' WHERE pkey=${id}
+      UPDATE criterio SET estatus = 'inactivo' WHERE pkey=${id}
   </update>
 
 </mapper>

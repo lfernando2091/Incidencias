@@ -47,7 +47,7 @@
         <div id="sidebar" class="tm-sidebar-left uk-background-default">
             <center>
                 <div class="user">
-                    <img id="avatar" width="100" class="uk-border-circle" src="images/avatar.jpg" />
+                    <img id="avatar" width="100" class="uk-border-circle" src="images/avatar.png" />
                     <div class="uk-margin-top"></div>
                     <div id="name" class="uk-text-truncate"><%= user %></div>
                     <div id="email" class="uk-text-truncate"><%= email %></div>
@@ -61,39 +61,52 @@
                     Menú
                 </li>
                 <li><a href="/dashboard">Dashboard</a></li>
-                <li><a href="components.html">Incidencia</a></li>
-                <li><a href="tables.html">Calificaciones</a></li>                
+                <li><a href="#">Incidencia</a></li>
+                <li><a href="#">Calificaciones</a></li>                
 
                 <li class="uk-nav-header">
                     Catalogos
                 </li>
-                <li><a href="tables.html">Docentes</a></li>
-                <li><a href="login.html">Usuario</a></li>                
+                <li><a href="#">Docentes</a></li>
+                <li><a href="#">Usuario</a></li>                
                 <li><a href="/periodo">Periodo</a></li>
-                <li><a href="article.html">Criterio</a></li>
-                <li><a href="register.html">Categoria Incidencia</a></li>
-                <li><a href="article.html">Programa Educativo</a></li>
+                <li><a href="/criterio">Criterio</a></li>
+                <li><a href="#">Categoria Incidencia</a></li>
+                <li><a href="/programa_educativo">Programa Educativo</a></li>
 
                 <li class="uk-nav-header">
                     Reportes
                 </li>
-                <li><a href="login.html">Calificaciones</a></li>
-	        <li><a href="404.html">Incidencia</a></li>
+                <li><a href="#">Calificaciones</a></li>
+	        <li><a href="#">Incidencia</a></li>
             </ul>
         </div>
         <!-- Content -->
+
         <% if(content == 'dashboard'){ %>
-        <%- include('./menu/dashboard'); -%>
+            <%- include('./menu/dashboard'); -%>
         <% } %>
+
         <% if(content == 'periodo'){ %>
-        <%- include('./menu/periodo'); -%>
+            <%- include('./menu/periodo'); -%>
         <% } %>
+        
+        <% if(content == 'criterio'){ %>
+            <%- include('./menu/criterio'); -%>
+        <% } %>
+
+        <% if(content == 'programa_educativo'){ %>
+            <%- include('./menu/programa_educativo'); -%>
+        <% } %>
+
         <!-- End Content -->
         
         <!-- JQuery -->
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
 
-        <% if(content == 'periodo'){ %>
+        <% if(content == 'periodo' || 
+            content == 'criterio' ||
+            content == 'programa_educativo'){ %>
         <!-- Data Tables -->
         <script type="text/javascript" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
         <script type="text/javascript" src="https://cdn.datatables.net/1.10.19/js/dataTables.uikit.min.js"></script>
@@ -120,5 +133,32 @@
         <% } %>
 		<!-- Sample Notifications -->
 		<script type="text/javascript" src="js/notification.js"></script>
+
+        <% if (mensaje != null && mensaje != ''){ %>
+            <% mensaje.forEach(function(message){ %>
+                <script type="text/javascript">
+                    viewNotification('<%= message %>');
+                </script>
+            <% })%> 
+        <% } %> 
+
+        <% if (alert != null && alert != 'null'){ %>
+            <% alert.forEach(function(message){ %>
+                <script type="text/javascript">
+                    viewAlert('<%= message %>');
+                </script>
+            <% })%> 
+        <% } %> 
+
+        <% if (modal != null && modal != ''){ %>
+            <script type="text/javascript">
+                var modal = UIkit.modal("#" + '<%= modal %>');
+                if ( modal.isToggled() )
+                    modal.hide();
+                else 
+                    modal.show();
+            </script>
+        <% } %> 
+
     </body>
 </html>

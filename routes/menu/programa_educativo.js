@@ -3,7 +3,7 @@ var router = express.Router();
 
 /*Call Mappers Controller*/
 const mappers = require('../../lib/mappers.js');
-mappers.loadMapper('/menu/periodo');
+mappers.loadMapper('/menu/programa_educativo');
 
 /* GET Periodo. */
 router.get('/', function(req, res, next){
@@ -20,14 +20,14 @@ router.get('/', function(req, res, next){
 
 	      var isMyObjectEmpty = !Object.keys(msj).length;
 
-	      connection.query(mappers.onQuery('periodo', 'catalogo', null), [], function(err, results) {
+	      connection.query(mappers.onQuery('programa_educativo', 'catalogo', null), [], function(err, results) {
 	        if (err) return next(err); 
 	        req.flash('mensaje', isMyObjectEmpty ? '' : msj);
 	        req.flash('modal', (!Object.keys(modal).length) ? '' : modal);
 	        req.flash('modal-values', (!Object.keys(modal_values).length) ? '' : modal_values);
 	        req.flash('alert', (!Object.keys(alert).length) ? '' : alert);
 	        req.flash('results', results);
-	        req.flash('content', 'periodo');
+	        req.flash('content', 'programa_educativo');
 			return res.redirect('/welcome'); 
 
 	      });
@@ -51,15 +51,15 @@ router.post('/agregar', function(req, res, next){
 	    	req.flash('alert', 'Uno o más campos estan vacios');
 		    req.flash('modal-values', values);
 		    req.flash('modal', 'modal-nuevo');
-	    	return res.redirect('/periodo');	
+	    	return res.redirect('/programa_educativo');	
 	    }
 
-	      connection.query(mappers.onQuery('periodo', 'agregar', param), [], function(err, results) {
+	      connection.query(mappers.onQuery('programa_educativo', 'agregar', param), [], function(err, results) {
 	        if (err) return next(err); 
 
 	        req.flash('mensaje', 'Nuevo elemento agregado');
 
-			return res.redirect('/periodo'); 
+			return res.redirect('/programa_educativo'); 
 
 	      });
 	});
@@ -84,15 +84,15 @@ router.post('/editar', function(req, res, next){
 		    	req.flash('alert', 'Uno o más campos estan vacios');
 			    req.flash('modal-values', values);
 			    req.flash('modal', 'modal-editar');
-		    	return res.redirect('/periodo');	
+		    	return res.redirect('/programa_educativo');	
 		    }
 
-	      connection.query(mappers.onQuery('periodo', 'actualizar', param), [], function(err, results) {
+	      connection.query(mappers.onQuery('programa_educativo', 'actualizar', param), [], function(err, results) {
 	        if (err) return next(err); 
 
 	        req.flash('mensaje', 'Elemento editado con exito');
 	        
-			return res.redirect('/periodo'); 
+			return res.redirect('/programa_educativo'); 
 
 	      });
 	});
@@ -105,12 +105,12 @@ router.post('/eliminar', function(req, res, next){
 			var param = { 
 				id : req.body._idU
 		    } 
-	      connection.query(mappers.onQuery('periodo', 'eliminar', param), [], function(err, results) {
+	      connection.query(mappers.onQuery('programa_educativo', 'eliminar', param), [], function(err, results) {
 	        if (err) return next(err); 
 
 	        req.flash('mensaje', 'Elemento eliminado con exito');
 
-			return res.redirect('/periodo'); 
+			return res.redirect('/programa_educativo'); 
 
 	      });
 	});

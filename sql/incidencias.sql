@@ -2,7 +2,7 @@ DROP DATABASE IF EXISTS incidencias;
 
 CREATE DATABASE incidencias;
 
-USE incidencias;
+USE incidencias; 
 
 CREATE TABLE usuario(
 	pkey INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
