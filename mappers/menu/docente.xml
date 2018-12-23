@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="docente">
+
+  <select id="catalogo">
+    SELECT
+      pkey                  Id,
+      nombre                Nombre,
+      apellido_paterno      ApellidoPaterno,
+      apellido_materno      ApellidoMaterno,
+      correo_electronico    Correo,
+      fecha_nacimiento      FechaNacimiento,
+      cedula_profesional    CedulaProfesional,
+      numero_telefonico     NumeroTelefonico,
+      fotografia            Fotografia,
+      tipo_horario          TipoHorario,
+      estatus               Estatus
+    FROM
+      docente
+    WHERE
+      estatus = 'activo'
+  </select>
+
+  <select id="findById">
+    SELECT
+      pkey                  Id,
+      nombre                Nombre,
+      apellido_paterno      ApellidoPaterno,
+      apellido_materno      ApellidoMaterno,
+      correo_electronico    Correo,
+      fecha_nacimiento      FechaNacimiento,
+      cedula_profesional    CedulaProfesional,
+      numero_telefonico     NumeroTelefonico,
+      fotografia            Fotografia,
+      tipo_horario          TipoHorario,
+      estatus               Estatus
+    FROM
+      docente
+    WHERE
+      pkey = ${id} AND estatus = 'activo'
+  </select>
+
+  <select id="findAllById">
+    SELECT
+      pkey                  Id,
+      nombre                Nombre,
+      apellido_paterno      ApellidoPaterno,
+      apellido_materno      ApellidoMaterno,
+      correo_electronico    Correo,
+      fecha_nacimiento      FechaNacimiento,
+      cedula_profesional    CedulaProfesional,
+      numero_telefonico     NumeroTelefonico,
+      fotografia            Fotografia,
+      tipo_horario          TipoHorario,
+      estatus               Estatus
+    FROM
+      docente
+    WHERE
+      pkey = ${id}
+  </select>
+
+  <insert id="agregar">
+        INSERT INTO docente
+        (
+          nombre,
+          apellido_paterno,
+          apellido_materno,
+          correo_electronico,
+          fecha_nacimiento,
+          cedula_profesional,
+          numero_telefonico,
+          fotografia,
+          tipo_horario
+        )
+        VALUES
+        (
+          '${nombre}', 
+          '${apellido_paterno}',
+          '${apellido_materno}',
+          '${correo_electronico}',
+          '${fecha_nacimiento}',
+          '${cedula_profesional}',
+          '${numero_telefonico}',
+          '${fotografia}',
+          '${tipo_horario}'
+        )
+    </insert>
+
+  <update id="actualizar">
+      UPDATE docente SET 
+        correo_electronico = '${correo_electronico}',  
+        numero_telefonico = '${numero_telefonico}', 
+        fotografia = '${fotografia}',
+        tipo_horario = '${tipo_horario}'
+      WHERE pkey=${id}
+  </update>
+
+  <update id="eliminar">
+      UPDATE docente SET 
+        estatus = 'inactivo' 
+      WHERE pkey=${id}
+  </update>
+
+</mapper>

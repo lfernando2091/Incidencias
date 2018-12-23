@@ -67,11 +67,11 @@
                 <li class="uk-nav-header">
                     Catalogos
                 </li>
-                <li><a href="#">Docentes</a></li>
+                <li><a href="/docente">Docentes</a></li>
                 <li><a href="#">Usuario</a></li>                
                 <li><a href="/periodo">Periodo</a></li>
                 <li><a href="/criterio">Criterio</a></li>
-                <li><a href="#">Categoria Incidencia</a></li>
+                <li><a href="/categoria_incidencia">Categoria Incidencia</a></li>
                 <li><a href="/programa_educativo">Programa Educativo</a></li>
 
                 <li class="uk-nav-header">
@@ -99,6 +99,14 @@
             <%- include('./menu/programa_educativo'); -%>
         <% } %>
 
+        <% if(content == 'categoria_incidencia'){ %>
+            <%- include('./menu/categoria_incidencia'); -%>
+        <% } %>
+
+        <% if(content == 'docente'){ %>
+            <%- include('./menu/docente'); -%>
+        <% } %>
+
         <!-- End Content -->
         
         <!-- JQuery -->
@@ -106,7 +114,9 @@
 
         <% if(content == 'periodo' || 
             content == 'criterio' ||
-            content == 'programa_educativo'){ %>
+            content == 'programa_educativo' ||
+            content == 'categoria_incidencia' ||
+            content == 'docente'){ %>
         <!-- Data Tables -->
         <script type="text/javascript" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
         <script type="text/javascript" src="https://cdn.datatables.net/1.10.19/js/dataTables.uikit.min.js"></script>
