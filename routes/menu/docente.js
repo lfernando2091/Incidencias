@@ -5,6 +5,8 @@ var router = express.Router();
 const mappers = require('../../lib/mappers.js');
 mappers.loadMapper('/menu/docente');
 
+const fs = require('fs');
+
 /* GET Periodo. */
 router.get('/', function(req, res, next){
 	req.getConnection(function(err, connection) {
@@ -46,7 +48,6 @@ router.post('/imagen', upload.single('imageFile'), function(req, res, next){
 router.post('/agregar', function(req, res, next){
 	req.getConnection(function(err, connection) {
 	      if (err) return next(err);
-	      console.dir(req.files['fotografia_n'][0]);
 			
 		if(req.body.nombre_n == '' || 
 			req.body.apellido_paterno_n == '' ||
@@ -110,7 +111,6 @@ router.post('/editar', function(req, res, next){
 		    	var values = { 
 			        correo_electronico_e : req.body.correo_electronico_e,
 			        numero_telefonico_e : req.body.numero_telefonico_e,
-			        fotografia_e : req.body.fotografia_e,
 			        tipo_horario_e : req.body.tipo_horario_e
 			    } 
 		    	req.flash('alert', 'Uno o más campos estan vacios');
@@ -121,10 +121,10 @@ router.post('/editar', function(req, res, next){
 
 		    var param = { 
 				id : req.body._id,
-		        correo_electronico : req.body.correo_electronico_n,
-		        numero_telefonico : req.body.numero_telefonico_n,
-		        fotografia : req.body.fotografia_n,
-		        tipo_horario : req.body.tipo_horario_n
+		        correo_electronico : req.body.correo_electronico_e,
+		        numero_telefonico : req.body.numero_telefonico_e,
+		        fotografia : 'temp/' + req.files['fotografia_e'][0].filename,
+		        tipo_horario : req.body.tipo_horario_e
 		    } 
 
 	      connection.query(mappers.onQuery('docente', 'actualizar', param), [], function(err, results) {

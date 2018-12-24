@@ -215,19 +215,7 @@
                                                                 <p>¡Por fin agregas algo nuevo, ya tenie rato!</p>
                                                             </div>
                                                         </div>
-<!--
-                                                        <div class="uk-text-center js-upload">
-                                                            <div class="uk-inline-clip uk-transition-toggle uk-dark uk-link" tabindex="0" uk-form-custom>
-                                                                <input type="file" name="fotografia_n">
-                                                                <img src="images/avatar.png" alt="avatar" height="100px" width="100px">
-                                                                <div class="uk-position-center">            
-                                                                    <span class="uk-transition-fade uk-icon-button" uk-icon="icon: plus; ratio: 2"></span>
-                                                                </div>
-                                                            </div>
-                                                            <p class="uk-margin-small-top">*Imagen con una relación de aspecto de 1:1</p>
-                                                            <progress id="js-progressbar" class="uk-progress" max="100" hidden></progress>
-                                                        </div>
--->
+
                                                         <div class="uk-margin">
                                                             <div class="uk-position-relative uk-text-emphasis">
                                                                 Nombre:
@@ -284,14 +272,7 @@
                                                             <div class="uk-position-relative uk-text-emphasis">
                                                                 Fecha Nacimiento:
                                                             </div>
-                                                        </div>
-<!--                                
-                                                        <div class="uk-margin">
-                                                            <div class="uk-position-relative">
-                                                                <div class="datepicker-here" data-language='es'></div>
-                                                            </div>
-                                                        </div>
--->                      
+                                                        </div>                     
 
                                                         <div class="uk-margin">
                                                             <div class="uk-position-relative">
@@ -326,7 +307,7 @@
                                                                 <input name="numero_telefonico_n" class="data-edition-area uk-input" type="tel" placeholder="888 888 8888" pattern="[0-9]{3} [0-9]{3} [0-9]{4}" maxlength="12" required placeholder="Telefono" <% if(modal_values != null){ %> value="<%= modal_values.numero_telefonico_n %>"  <% } %> >                  
                                                             </div>
                                                         </div>
-<!-- Fotografia -->
+
                                                         <div class="uk-margin">
                                                             <div class="uk-position-relative uk-text-emphasis">
                                                                 Fotografia:
@@ -401,7 +382,7 @@
                                                 <h2 class="uk-modal-title">¡Editar!</h2>
                                             </div>
 
-                                            <form action="/docente/editar" method="POST">
+                                            <form action="/docente/editar" method="POST" enctype="multipart/form-data">
                                                 <fieldset class="uk-fieldset">
 
                                                     <div class="uk-modal-body">
@@ -416,27 +397,69 @@
 
                                                         <div class="uk-margin">
                                                             <div class="uk-position-relative uk-text-emphasis">
-                                                                Nombre:
+                                                                Correo:
                                                             </div>
                                                         </div>
                                                         
                                                         <div class="uk-margin">
                                                             <div class="uk-position-relative">
                                                                 <span class="uk-form-icon ion-edit"></span>
-                                                                <input id="nombre" name="nombre_e" class="data-edition-area uk-input" type="input" placeholder="Nombre" <% if(modal_values != null){ %> value="<%= modal_values.nombre_e %>"  <% } %> >
+                                                                <input id="correo" name="correo_electronico_e" class="data-edition-area uk-input" type="emial" placeholder="Correo" required <% if(modal_values != null){ %> value="<%= modal_values.correo_electronico_e %>"  <% } %> >
                                                             </div>
                                                         </div>
 
                                                         <div class="uk-margin">
                                                             <div class="uk-position-relative uk-text-emphasis">
-                                                                Clave:
+                                                                Numero Telefonico:
                                                             </div>
                                                         </div>
 
                                                         <div class="uk-margin">
                                                             <div class="uk-position-relative">
                                                                 <span class="uk-form-icon ion-edit"></span>
-                                                                <input id="clave" name="clave_e" class="data-edition-area uk-input" type="input" placeholder="Clave" <% if(modal_values != null){ %> value="<%= modal_values.clave_e %>"  <% } %>>
+                                                                <input id="telefono" name="numero_telefonico_e" class="data-edition-area uk-input" type="tel" placeholder="888 888 8888" pattern="[0-9]{3} [0-9]{3} [0-9]{4}" maxlength="12" required <% if(modal_values != null){ %> value="<%= modal_values.numero_telefonico_e %>"  <% } %>>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="uk-margin">
+                                                            <div class="uk-position-relative uk-text-emphasis">
+                                                                Fotografia:
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="uk-margin">
+                                                            <div class="uk-position-relative">
+                                                                <span class="uk-form-icon ion-edit"></span>
+                                                                <input id="fotografia" name="fotografia_e" class="data-edition-area uk-input" type="file" accept="image/*" <% if(modal_values != null){ %> value="<%= modal_values.fotografia_e %>"  <% } %> >                  
+                                                            </div>
+                                                            <p class="uk-comment-meta">*La resolución de las imagenes tener una proporción de relación 1:1</p>
+                                                        </div>
+
+                                                        <div class="uk-margin">
+                                                            <div class="uk-position-relative uk-text-emphasis">
+                                                                Tipo Horario:
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="uk-margin">
+                                                            <div class="uk-position-relative">
+                                                                <select name="tipo_horario_e" class="uk-select">
+                                                                <option 
+                                                                    <% if(modal_values != null){ %>
+                                                                        <% if(modal_values.tipo_horario_e == 'parcial'){ %> 
+                                                                            selected  
+                                                                        <% } %>
+                                                                    <% } %>
+                                                                value="parcial">Parcial</option>
+
+                                                                <option 
+                                                                    <% if(modal_values != null){ %>
+                                                                        <% if(modal_values.tipo_horario_e == 'completo'){ %> 
+                                                                            selected  
+                                                                        <% } %>
+                                                                    <% } %>
+                                                                 value="completo">Completo</option>
+                                                                </select>          
                                                             </div>
                                                         </div>
 
