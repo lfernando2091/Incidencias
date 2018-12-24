@@ -6,6 +6,7 @@ const mappers = require('../../lib/mappers.js');
 mappers.loadMapper('/menu/docente');
 
 const fs = require('fs');
+const path = require('path');
 
 /* GET Periodo. */
 router.get('/', function(req, res, next){
@@ -28,6 +29,29 @@ router.get('/', function(req, res, next){
 	        req.flash('modal', (!Object.keys(modal).length) ? '' : modal);
 	        req.flash('modal-values', (!Object.keys(modal_values).length) ? '' : modal_values);
 	        req.flash('alert', (!Object.keys(alert).length) ? '' : alert);
+
+	        results.forEach(function(element) {	        	
+	        	try{
+	        		/*Este parte del codigo funciona chido pero hay un problema con el render*/
+	        			//var data = fs.readFileSync('./temp/' +element.Fotografia);
+	        			//var base64Image = new Buffer(data, 'binary').toString('base64');
+		        		//element.Fotografia = 'data:image/'+path.extname(element.Fotografia).split('.').pop()+';base64,'+ base64Image;
+		        	/*End*/
+
+		        	//element.Fotografia = fs.readFileSync('./temp/' +element.Fotografia);
+		        	fs.readFile('./temp/' +element.Fotografia, (err, data)=>{
+        
+				        //error handle
+				        if(err) element.Fotografia = 'images/avatar.png';
+
+				        element.Fotografia = data;
+				    });
+
+			  	}catch(e){
+			  		element.Fotografia = 'images/avatar.png';
+			  	}
+			});
+
 	        req.flash('results', results);
 	        req.flash('content', 'docente');
 			return res.redirect('/welcome'); 
@@ -83,7 +107,7 @@ router.post('/agregar', function(req, res, next){
 		        fecha_nacimiento : req.body.fecha_nacimiento_n,
 		        cedula_profesional : req.body.cedula_profesional_n,
 		        numero_telefonico : req.body.numero_telefonico_n,
-		        fotografia : 'temp/' + req.files['fotografia_n'][0].filename,
+		        fotografia : req.files['fotografia_n'][0].filename,
 		        tipo_horario : req.body.tipo_horario_n
 		    } 
 
@@ -123,7 +147,7 @@ router.post('/editar', function(req, res, next){
 				id : req.body._id,
 		        correo_electronico : req.body.correo_electronico_e,
 		        numero_telefonico : req.body.numero_telefonico_e,
-		        fotografia : 'temp/' + req.files['fotografia_e'][0].filename,
+		        fotografia : req.files['fotografia_e'][0].filename,
 		        tipo_horario : req.body.tipo_horario_e
 		    } 
 

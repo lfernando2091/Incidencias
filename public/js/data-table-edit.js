@@ -16,6 +16,8 @@ function onTableDataView(e)
 		try{
 			if($("#" + key)[0].tagName == 'DIV')
 		   		$("#" + key).html(data[key]);
+		   	else if($("#" + key)[0].tagName == 'IMG')
+		   		$("#" + key).attr("src",data[key]);		   	
 	   	}catch(e){
 
 	   	}

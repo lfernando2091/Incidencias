@@ -7,15 +7,15 @@ const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const fs = require('fs');
 const multer = require('multer');
-/*
+
 var storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    cb(null, '/temp/my-uploads')
+    cb(null, 'temp/')
   },
   filename: function (req, file, cb) {
-    cb(null, file.fieldname + '-' + Date.now())
+    cb(null, file.fieldname + '-' + Date.now() + path.extname(file.originalname))
   }
-})*/
+})
 //csrf for request
 const csrf = require('csurf');
 //Apply gzip compression for all request
@@ -98,7 +98,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
-app.use(multer({ dest: 'temp/'}).fields([{ name: 'fotografia_n', maxCount: 1 }, { name: 'fotografia_e', maxCount: 1 }]));
+app.use(multer({ storage: storage }).fields([{ name: 'fotografia_n', maxCount: 1 }, { name: 'fotografia_e', maxCount: 1 }]));
 app.use(csrf({ cookie: true }));
 
 app.use(compression());
