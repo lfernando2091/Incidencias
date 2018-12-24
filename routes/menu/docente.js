@@ -35,9 +35,18 @@ router.get('/', function(req, res, next){
 });
 
 /* POST Periodo Agregar.*/
+/*
+router.post('/imagen', upload.single('imageFile'), function(req, res, next){
+	console.log(req.file);
+	console.log(req.body);
+});
+*/
+
+/* POST Periodo Agregar.*/
 router.post('/agregar', function(req, res, next){
 	req.getConnection(function(err, connection) {
 	      if (err) return next(err);
+	      console.dir(req.files['fotografia_n'][0]);
 			
 		if(req.body.nombre_n == '' || 
 			req.body.apellido_paterno_n == '' ||
@@ -57,7 +66,6 @@ router.post('/agregar', function(req, res, next){
 		        fecha_nacimiento_n : req.body.fecha_nacimiento_n,
 		        cedula_profesional_n : req.body.cedula_profesional_n,
 		        numero_telefonico_n : req.body.numero_telefonico_n,
-		        fotografia_n : req.body.fotografia_n,
 		        tipo_horario_n : req.body.tipo_horario_n
 		    } 
 	    	req.flash('alert', 'Uno o más campos estan vacios');
@@ -74,7 +82,7 @@ router.post('/agregar', function(req, res, next){
 		        fecha_nacimiento : req.body.fecha_nacimiento_n,
 		        cedula_profesional : req.body.cedula_profesional_n,
 		        numero_telefonico : req.body.numero_telefonico_n,
-		        fotografia : req.body.fotografia_n,
+		        fotografia : 'temp/' + req.files['fotografia_n'][0].filename,
 		        tipo_horario : req.body.tipo_horario_n
 		    } 
 
@@ -86,6 +94,7 @@ router.post('/agregar', function(req, res, next){
 			return res.redirect('/docente'); 
 
 	      });
+
 	});
 });
 
@@ -126,6 +135,7 @@ router.post('/editar', function(req, res, next){
 			return res.redirect('/docente'); 
 
 	      });
+
 	});
 });
 
