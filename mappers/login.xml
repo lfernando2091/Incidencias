@@ -11,7 +11,7 @@
     FROM
       usuario
     WHERE
-      usuario = '${usuario}'
+      usuario = '${usuario}' AND estatus = 'activo'
   </select>
 
   <select id="findById">
@@ -23,6 +23,6 @@
     FROM
       usuario
     WHERE
-      pkey = ${id}
+      pkey = ${id} AND estatus = 'activo'
   </select>
 </mapper>

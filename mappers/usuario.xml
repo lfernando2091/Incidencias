@@ -11,4 +11,61 @@
         VALUES
         ('${usuario}', '${email}', '${token}')
     </insert>
+
+    <select id="catalogo">
+    SELECT
+      pkey Id,
+      usuario Usuario,
+      tipo Tipo,
+      email Email,
+      estatus Estatus
+    FROM
+      usuario
+  </select>
+
+  <select id="findById">
+    SELECT
+      pkey Id,
+      usuario Usuario,
+      tipo Tipo,
+      email Email,
+      estatus Estatus
+    FROM
+      usuario
+    WHERE
+      pkey = ${id} AND estatus = 'activo'
+  </select>
+
+  <select id="findAllById">
+    SELECT
+      pkey Id,
+      usuario Usuario,
+      tipo Tipo,
+      email Email,
+      estatus Estatus
+    FROM
+      usuario
+    WHERE
+      pkey = ${id}
+  </select>
+
+  <insert id="agregar">
+        INSERT INTO usuario
+        (
+          usuario,
+          tipo,
+          email,
+          token
+        )
+        VALUES
+        ('${usuario}', '${tipo}', '${email}', '${token}')
+  </insert>
+
+  <update id="actualizar">
+      UPDATE usuario SET usuario = '${usuario}', tipo = '${tipo}', token = '${token}' WHERE pkey=${id}
+  </update>
+
+  <update id="eliminar">
+      UPDATE usuario SET estatus = 'inactivo' WHERE pkey=${id}
+  </update>
 </mapper>

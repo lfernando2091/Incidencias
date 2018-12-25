@@ -443,7 +443,7 @@
 
                                                         <div class="uk-margin">
                                                             <div class="uk-position-relative">
-                                                                <select name="tipo_horario_e" class="uk-select">
+                                                                <select id="horario" name="tipo_horario_e" class="data-edition-area uk-select">
                                                                 <option 
                                                                     <% if(modal_values != null){ %>
                                                                         <% if(modal_values.tipo_horario_e == 'parcial'){ %> 
@@ -500,6 +500,48 @@
 
                                                     <div class="uk-modal-body">
                                                         <p>¿No manches estas seguro que quieres borrar esto?</p>
+
+                                                        <div class="uk-margin">
+                                                            <div class="uk-position-relative uk-text-emphasis">
+                                                                Comentario:
+                                                            </div>
+                                                        </div>
+                                                        
+                                                        <div class="uk-margin">
+                                                            <div class="uk-position-relative">
+                                                                <span class="uk-form-icon ion-edit"></span>
+                                                                <input name="comentario_x" class="data-edition-area uk-input" type="input" required placeholder="Razón o motivo de la baja" <% if(modal_values != null){ %> value="<%= modal_values.nombre_x %>"  <% } %> >
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="uk-margin">
+                                                            <div class="uk-position-relative uk-text-emphasis">
+                                                                Tipo Baja:
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="uk-margin">
+                                                            <div class="uk-position-relative">
+                                                                <select name="tipo_baja_x" class="uk-select">
+                                                                <option 
+                                                                    <% if(modal_values != null){ %>
+                                                                        <% if(modal_values.tipo_baja_x == 'temporal'){ %> 
+                                                                            selected  
+                                                                        <% } %>
+                                                                    <% } %>
+                                                                value="temporal">Temporal</option>
+
+                                                                <option 
+                                                                    <% if(modal_values != null){ %>
+                                                                        <% if(modal_values.tipo_baja_x == 'definitivo'){ %> 
+                                                                            selected  
+                                                                        <% } %>
+                                                                    <% } %>
+                                                                 value="definitivo">Definitivo</option>
+                                                                </select>          
+                                                            </div>                                                     
+                                                        </div>
+
                                                         <input id="_idU" type="hidden" class="data-edition-area" name="_idU">
                                                     </div>
 

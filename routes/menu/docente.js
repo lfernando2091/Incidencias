@@ -29,29 +29,20 @@ router.get('/', function(req, res, next){
 	        req.flash('modal', (!Object.keys(modal).length) ? '' : modal);
 	        req.flash('modal-values', (!Object.keys(modal_values).length) ? '' : modal_values);
 	        req.flash('alert', (!Object.keys(alert).length) ? '' : alert);
-
+/*
 	        results.forEach(function(element) {	        	
 	        	try{
-	        		/*Este parte del codigo funciona chido pero hay un problema con el render*/
+	        		//Este parte del codigo funciona chido pero hay un problema con el render
 	        			//var data = fs.readFileSync('./temp/' +element.Fotografia);
 	        			//var base64Image = new Buffer(data, 'binary').toString('base64');
 		        		//element.Fotografia = 'data:image/'+path.extname(element.Fotografia).split('.').pop()+';base64,'+ base64Image;
-		        	/*End*/
-
-		        	//element.Fotografia = fs.readFileSync('./temp/' +element.Fotografia);
-		        	fs.readFile('./temp/' +element.Fotografia, (err, data)=>{
-        
-				        //error handle
-				        if(err) element.Fotografia = 'images/avatar.png';
-
-				        element.Fotografia = data;
-				    });
+		        	//End
 
 			  	}catch(e){
 			  		element.Fotografia = 'images/avatar.png';
 			  	}
 			});
-
+*/
 	        req.flash('results', results);
 	        req.flash('content', 'docente');
 			return res.redirect('/welcome'); 
@@ -59,6 +50,33 @@ router.get('/', function(req, res, next){
 	      });
 	});
 });
+
+router.get('/src/:gap', function(req, res, next){
+	/*Este parte del codigo funciona chido pero hay un problema con el render*/
+	if(req.params.gap != '' && req.params.gap!= null){
+
+		fs.readFile('./temp/' + req.params.gap, (err, data)=>{
+        
+			//error handle
+		    if(err) return res.status(500).send('Image Not Found');
+
+		    //var base64Image = new Buffer(data, 'binary').toString('base64');
+		    
+		    //var imgSrcString  = 'data:image/'+path.extname(req.params.gap).split('.').pop()+';base64,'+ base64Image;
+
+		    res.writeHead(200, {'Content-Type': 'image/'+path.extname(req.params.gap).split('.').pop() });
+		    return res.end(data, 'binary');
+
+			//return res.send(imgSrcString);
+		});
+	 	 
+	}else
+		next();
+	
+	/*End*/
+
+});
+
 
 /* POST Periodo Agregar.*/
 /*
@@ -107,7 +125,7 @@ router.post('/agregar', function(req, res, next){
 		        fecha_nacimiento : req.body.fecha_nacimiento_n,
 		        cedula_profesional : req.body.cedula_profesional_n,
 		        numero_telefonico : req.body.numero_telefonico_n,
-		        fotografia : req.files['fotografia_n'][0].filename,
+		        fotografia : req.files['fotografia_n']!= null?req.files['fotografia_n'][0].filename:'',
 		        tipo_horario : req.body.tipo_horario_n
 		    } 
 
@@ -147,7 +165,7 @@ router.post('/editar', function(req, res, next){
 				id : req.body._id,
 		        correo_electronico : req.body.correo_electronico_e,
 		        numero_telefonico : req.body.numero_telefonico_e,
-		        fotografia : req.files['fotografia_e'][0].filename,
+		        fotografia : req.files['fotografia_e']!=null?req.files['fotografia_e'][0].filename: '',
 		        tipo_horario : req.body.tipo_horario_e
 		    } 
 
@@ -168,16 +186,23 @@ router.post('/eliminar', function(req, res, next){
 	req.getConnection(function(err, connection) {
 	      if (err) return next(err);
 			var param = { 
-				id : req.body._idU
+				id : req.body._idU,
+				comentario : req.body.comentario_x,
+				tipo_baja : req.body.tipo_baja_x
 		    } 
-	      connection.query(mappers.onQuery('docente', 'eliminar', param), [], function(err, results) {
-	        if (err) return next(err); 
 
-	        req.flash('mensaje', 'Elemento eliminado con exito');
+	      	connection.query(mappers.onQuery('docente', 'eliminar', param), [], function(err, results) {
+	      	});
 
-			return res.redirect('/docente'); 
+	      	connection.query(mappers.onQuery('docente', 'docente_baja', param), [], function(err, results) {
+		        if (err) return next(err); 
 
-	      });
+		        req.flash('mensaje', 'Elemento eliminado con exito');
+
+				return res.redirect('/docente'); 
+
+	      	});
+	      
 	});
 });
 

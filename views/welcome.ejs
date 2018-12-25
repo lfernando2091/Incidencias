@@ -68,7 +68,7 @@
                     Catalogos
                 </li>
                 <li><a href="/docente">Docentes</a></li>
-                <li><a href="#">Usuario</a></li>                
+                <li><a href="/usuario">Usuarios</a></li>                
                 <li><a href="/periodo">Periodo</a></li>
                 <li><a href="/criterio">Criterio</a></li>
                 <li><a href="/categoria_incidencia">Categoria Incidencia</a></li>
@@ -107,6 +107,10 @@
             <%- include('./menu/docente'); -%>
         <% } %>
 
+        <% if(content == 'usuario'){ %>
+            <%- include('./menu/usuario'); -%>
+        <% } %>
+
         <!-- End Content -->
         
         <!-- JQuery -->
@@ -116,7 +120,8 @@
             content == 'criterio' ||
             content == 'programa_educativo' ||
             content == 'categoria_incidencia' ||
-            content == 'docente'){ %>
+            content == 'docente' ||
+            content == 'usuario'){ %>
         <!-- Data Tables -->
         <script type="text/javascript" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
         <script type="text/javascript" src="https://cdn.datatables.net/1.10.19/js/dataTables.uikit.min.js"></script>
