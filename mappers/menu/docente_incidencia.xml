@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="docente_incidencia">
+
+  <select id="catalogo">
+    SELECT
+      a.pkey                    Id,
+      b.fotografia              Fotografia,
+      b.nombre                  Nombre,
+      b.apellido_paterno        Paterno,
+      b.apellido_materno        Materno,
+      c.pkey                  IdCatIncid,
+      c.nombre                CatIncid,
+      d.pkey                  IdPeriodo,
+      d.nombre                Periodo,
+      e.pkey                  IdProgEdu,
+      e.nombre                ProgEdu,
+      descripcion             Descripcion
+    FROM
+      docente_incidencia a
+    JOIN
+      docente b ON(a.id_docente = b.pkey)
+    JOIN
+      categoria_incidencia c ON(a.id_categoria_incidencia = c.pkey)
+    JOIN
+      periodo d ON(a.id_periodo = d.pkey)
+    JOIN
+      programa_educativo e ON(a.id_programa_educativo = e.pkey)
+    WHERE
+      a.estatus = 'activo'
+  </select>
+
+  <select id="findById">
+    SELECT
+      a.pkey                    Id,
+      b.fotografia              Fotografia,
+      b.nombre                  Nombre,
+      b.apellido_paterno        Paterno,
+      b.apellido_materno        Materno,
+      c.pkey                  IdCatIncid,
+      c.nombre                CatIncid,
+      d.pkey                  IdPeriodo,
+      d.nombre                Periodo,
+      e.pkey                  IdProgEdu,
+      e.nombre                ProgEdu,
+      descripcion             Descripcion
+    FROM
+      docente_incidencia a
+    JOIN
+      docente b ON(a.id_docente = b.pkey)
+      categoria_incidencia c ON(a.id_categoria_incidencia = c.pkey)
+      periodo d ON(a.id_periodo = d.pkey)
+      programa_educativo e ON(a.id_programa_educativo = e.pkey)
+    WHERE
+      pkey = ${id} AND estatus = 'activo'
+  </select>
+
+  <select id="findAllById">
+    SELECT
+      a.pkey                    Id,
+      b.fotografia              Fotografia,
+      b.nombre                  Nombre,
+      b.apellido_paterno        Paterno,
+      b.apellido_materno        Materno,
+      c.pkey                  IdCatIncid,
+      c.nombre                CatIncid,
+      d.pkey                  IdPeriodo,
+      d.nombre                Periodo,
+      e.pkey                  IdProgEdu,
+      e.nombre                ProgEdu,
+      descripcion             Descripcion
+    FROM
+      docente_incidencia a
+    JOIN
+      docente b ON(a.id_docente = b.pkey)
+      categoria_incidencia c ON(a.id_categoria_incidencia = c.pkey)
+      periodo d ON(a.id_periodo = d.pkey)
+      programa_educativo e ON(a.id_programa_educativo = e.pkey)
+    WHERE
+      pkey = ${id}
+  </select>
+
+  <insert id="agregar">
+        INSERT INTO docente_incidencia
+        (
+        id_docente,
+        id_categoria_incidencia,
+        id_periodo,
+        id_programa_educativo,
+        descripcion
+        )
+        VALUES
+        (${id_docente}, ${id_categoria_incidencia}, ${id_periodo}, ${id_programa_educativo}, '${descripcion}');
+    </insert>
+
+  <update id="actualizar">
+      UPDATE docente_incidencia SET  
+        id_categoria_incidencia = '${id_categoria_incidencia}',
+        id_periodo = '${id_periodo}',
+        id_programa_educativo = '${id_programa_educativo}',
+        descripcion = '${descripcion}',
+        fecha_ultima_mod = NOW()  
+      WHERE pkey=${id}
+  </update>
+
+  <update id="eliminar">
+      UPDATE docente_incidencia SET estatus = 'inactivo' WHERE pkey=${id}
+  </update>
+
+</mapper>

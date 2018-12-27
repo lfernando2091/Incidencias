@@ -43,7 +43,7 @@ router.get('/', function(req, res, next){
 			  	}
 			});
 */
-	        req.flash('results', results);
+	        req.flash('results', (!Object.keys(results).length) ? '' : results);
 	        req.flash('content', 'docente');
 			return res.redirect('/welcome'); 
 

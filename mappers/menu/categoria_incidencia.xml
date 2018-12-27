@@ -13,6 +13,16 @@
       estatus = 'activo'
   </select>
 
+  <select id="listado">
+    SELECT
+      pkey Id,
+      nombre Nombre
+    FROM
+      categoria_incidencia
+    WHERE
+      estatus = 'activo'
+  </select>
+
   <select id="findById">
     SELECT
       pkey Id,
@@ -51,5 +61,14 @@
   <update id="eliminar">
       UPDATE categoria_incidencia SET estatus = 'inactivo' WHERE pkey=${id}
   </update>
+
+  <select id="categoria_incidencia_info">
+    SELECT
+      nombre Nombre
+    FROM
+      categoria_incidencia
+    WHERE
+      pkey = ${id_categoria_incidencia} AND estatus = 'activo'
+  </select>
 
 </mapper>

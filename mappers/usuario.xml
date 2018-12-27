@@ -62,7 +62,11 @@
   </insert>
 
   <update id="actualizar">
-      UPDATE usuario SET usuario = '${usuario}', tipo = '${tipo}', token = '${token}' WHERE pkey=${id}
+      UPDATE usuario SET usuario = '${usuario}', tipo = '${tipo}', emailpass = '${emailpass}' WHERE pkey=${id}
+  </update>
+
+  <update id="actualizar_with_pass">
+      UPDATE usuario SET usuario = '${usuario}', tipo = '${tipo}', token = '${token}', emailpass = '${emailpass}' WHERE pkey=${id}
   </update>
 
   <update id="eliminar">

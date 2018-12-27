@@ -33,7 +33,7 @@
                                 <div uk-dropdown="pos: bottom-right; mode: click; offset: -17;">
                                    <ul class="uk-nav uk-navbar-dropdown-nav">
                                        <li class="uk-nav-header">Opciones</li>
-                                       <li><a href="#">Editar Perfil</a></li>
+                                       <li><a href="/perfil">Editar Perfil</a></li>
                                        <li class="uk-nav-header">Acciones</li>
                                        <li><a href="/logout">Logout</a></li>
                                    </ul>
@@ -61,7 +61,7 @@
                     Menú
                 </li>
                 <li><a href="/dashboard">Dashboard</a></li>
-                <li><a href="#">Incidencia</a></li>
+                <li><a href="/docente_incidencia">Incidencia</a></li>
                 <li><a href="#">Calificaciones</a></li>                
 
                 <li class="uk-nav-header">
@@ -111,6 +111,14 @@
             <%- include('./menu/usuario'); -%>
         <% } %>
 
+        <% if(content == 'docente_incidencia'){ %>
+            <%- include('./menu/docente_incidencia'); -%>
+        <% } %>
+
+        <% if(content == 'perfil'){ %>
+            <%- include('./menu/perfil'); -%>
+        <% } %>
+
         <!-- End Content -->
         
         <!-- JQuery -->
@@ -121,7 +129,9 @@
             content == 'programa_educativo' ||
             content == 'categoria_incidencia' ||
             content == 'docente' ||
-            content == 'usuario'){ %>
+            content == 'usuario' ||
+            content == 'docente_incidencia' ||
+            content == 'perfil'){ %>
         <!-- Data Tables -->
         <script type="text/javascript" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
         <script type="text/javascript" src="https://cdn.datatables.net/1.10.19/js/dataTables.uikit.min.js"></script>

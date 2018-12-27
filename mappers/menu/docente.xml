@@ -21,6 +21,18 @@
       estatus = 'activo'
   </select>
 
+  <select id="listado">
+    SELECT
+      pkey                  Id,
+      nombre                Nombre,
+      apellido_paterno      ApellidoPaterno,
+      apellido_materno      ApellidoMaterno
+    FROM
+      docente
+    WHERE
+      estatus = 'activo'
+  </select>
+
   <select id="findById">
     SELECT
       pkey                  Id,
@@ -103,5 +115,17 @@
   <update id="docente_baja">
     INSERT INTO docente_bajas(id_docente,comentario,tipo_baja) VALUES(${id},'${comentario}','${tipo_baja}');
   </update>
+
+  <select id="docente_info">
+        SELECT
+        nombre                Nombre,
+        apellido_paterno      ApellidoPaterno,
+        apellido_materno      ApellidoMaterno,
+        correo_electronico    Correo
+        FROM
+          docente
+        WHERE
+          pkey = ${id_docente} AND estatus = 'activo';
+  </select>
 
 </mapper>

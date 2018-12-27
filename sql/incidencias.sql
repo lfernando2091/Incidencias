@@ -63,6 +63,7 @@ CREATE TABLE docente_bajas(
 	id_docente INT, INDEX(id_docente), FOREIGN KEY (id_docente) REFERENCES docente(pkey),
 	comentario TEXT NOT NULL,
 	tipo_baja ENUM('temporal', 'definitivo') DEFAULT 'temporal',
+	estatus ENUM('activo', 'inactivo') DEFAULT 'activo',
 	fecha_registro TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
 	fecha_ultima_mod TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
@@ -71,6 +72,7 @@ CREATE TABLE docente_calificacion(
 	pkey INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
 	id_docente INT, INDEX(id_docente), FOREIGN KEY (id_docente) REFERENCES docente(pkey),
 	id_periodo INT, INDEX(id_periodo), FOREIGN KEY (id_periodo) REFERENCES periodo(pkey),
+	estatus ENUM('activo', 'inactivo') DEFAULT 'activo',
 	fecha_registro TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
 	fecha_ultima_mod TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
@@ -80,6 +82,7 @@ CREATE TABLE docente_calificacion_criterio(
 	id_docente_calificacion INT, INDEX(id_docente_calificacion), FOREIGN KEY (id_docente_calificacion) REFERENCES docente_calificacion(pkey),
 	id_criterio INT, INDEX(id_criterio), FOREIGN KEY (id_criterio) REFERENCES criterio(pkey),
 	calificacion DECIMAL(3,2) NOT NULL DEFAULT '0.00',
+	estatus ENUM('activo', 'inactivo') DEFAULT 'activo',
 	fecha_registro TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
 	fecha_ultima_mod TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
@@ -91,6 +94,7 @@ CREATE TABLE docente_incidencia(
 	id_periodo INT, INDEX(id_periodo), FOREIGN KEY (id_periodo) REFERENCES periodo(pkey),
 	id_programa_educativo INT, INDEX(id_programa_educativo), FOREIGN KEY (id_programa_educativo) REFERENCES programa_educativo(pkey),
 	descripcion TEXT NOT NULL,
+	estatus ENUM('activo', 'inactivo') DEFAULT 'activo',
 	fecha_registro TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
 	fecha_ultima_mod TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );

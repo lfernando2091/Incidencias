@@ -26,7 +26,7 @@ router.get('/', function(req, res, next){
 	        req.flash('modal', (!Object.keys(modal).length) ? '' : modal);
 	        req.flash('modal-values', (!Object.keys(modal_values).length) ? '' : modal_values);
 	        req.flash('alert', (!Object.keys(alert).length) ? '' : alert);
-	        req.flash('results', results);
+	        req.flash('results', (!Object.keys(results).length) ? '' : results);
 	        req.flash('content', 'usuario');
 			return res.redirect('/welcome'); 
 
