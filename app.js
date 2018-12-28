@@ -73,7 +73,7 @@ const flash = require('express-flash');
 const config = require('./config-grant.json');
 
 /*Config Options For MySql Connection*/
-const options = require('./config-db-options-online.json');
+//--const options = require('./config-db-options-online.json');
 
 /*"ssl": {},*/
 
@@ -86,7 +86,7 @@ options.ssl =
 }
 */
 
-const sessionStore = new MySQLStore(options);
+///--const sessionStore = new MySQLStore(options);
 
 var app = express();
 
@@ -111,13 +111,14 @@ app.use(flash());
 app.use(expressValidator());
 
 /*Set middleware for Mysql Connection*/
-app.use(MySqlConnection(MySql, options, 'single'));
+//--app.use(MySqlConnection(MySql, options, 'single'));
 
 // REQUIRED: any session store - see /examples/express-session-stores
+//--store: sessionStore,
 app.use(
     session(
         {
-            store: sessionStore,
+            
             key: 'My[Protectional*xPW2j}4Pass0/',
             secret: secretKey, 
             genid: (req) => {
