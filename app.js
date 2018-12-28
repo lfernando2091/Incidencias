@@ -76,12 +76,15 @@ const config = require('./config-grant.json');
 const options = require('./config-db-options-online.json');
 
 /*"ssl": {},*/
+
+/*
 options.ssl =
 {
     cat: fs.readFileSync(__dirname + '/certs/server-ca.pem'),
     key: fs.readFileSync(__dirname + '/certs/client-key.pem'),
     cert: fs.readFileSync(__dirname + '/certs/client-cert.pem')
 }
+*/
 
 const sessionStore = new MySQLStore(options);
 
