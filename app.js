@@ -73,15 +73,15 @@ const flash = require('express-flash');
 const config = require('./config-grant.json');
 
 /*Config Options For MySql Connection*/
-const options = require('./config-db-options.json');
+const options = require('./config-db-options-online.json');
 
 /*"ssl": {},*/
-/*options.ssl =
+options.ssl =
 {
     cat: fs.readFileSync(__dirname + '/certs/old-server-ca.pem'),
     key: fs.readFileSync(__dirname + '/certs/client-key.pem'),
     cert: fs.readFileSync(__dirname + '/certs/client-cert.pem')
-}*/
+}
 
 const sessionStore = new MySQLStore(options);
 

@@ -1,8 +1,19 @@
 {
     "auth": [
-      "/welcome"
+      "/welcome",
+      "/users",
+      "/dashboard",
+      "/periodo",
+      "/criterio",
+      "/programa_educativo",
+      "/categoria_incidencia",
+      "/docente",
+      "/usuario",
+      "/docente_incidencia",
+      "/perfil"
     ],
     "public": [
-      "/"
+      "/",
+      "/login"
     ]
 }

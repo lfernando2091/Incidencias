@@ -52,13 +52,16 @@ router.get('/', function(req, res, next){
 });
 
 router.get('/src/:gap', function(req, res, next){
-	/*Este parte del codigo funciona chido pero hay un problema con el render*/
+
+	if (!req.session || !req.session.authenticated || !req.isAuthenticated())
+            	return res.render('./403', { status: 403, title: 'No autorizado' });
+
 	if(req.params.gap != '' && req.params.gap!= null){
 
 		fs.readFile('./temp/' + req.params.gap, (err, data)=>{
         
 			//error handle
-		    if(err) return res.status(500).send('Image Not Found');
+		    if(err) return res.render('./403', { status: 500, title: 'Imagen no localizada' });
 
 		    //var base64Image = new Buffer(data, 'binary').toString('base64');
 		    
@@ -72,8 +75,6 @@ router.get('/src/:gap', function(req, res, next){
 	 	 
 	}else
 		next();
-	
-	/*End*/
 
 });
 
