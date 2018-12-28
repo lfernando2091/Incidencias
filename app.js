@@ -78,7 +78,7 @@ const options = require('./config-db-options-online.json');
 /*"ssl": {},*/
 options.ssl =
 {
-    cat: fs.readFileSync(__dirname + '/certs/old-server-ca.pem'),
+    cat: fs.readFileSync(__dirname + '/certs/server-ca.pem'),
     key: fs.readFileSync(__dirname + '/certs/client-key.pem'),
     cert: fs.readFileSync(__dirname + '/certs/client-cert.pem')
 }
