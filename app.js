@@ -1,53 +1,73 @@
-const createError = require('http-errors');
-const express = require('express');
-const bodyParser = require('body-parser');
-const debug = require('debug')('app --> ');
-const path = require('path');
-const cookieParser = require('cookie-parser');
-const logger = require('morgan');
-const fs = require('fs');
+var createError = require('http-errors');
+var express = require('express');
+var bodyParser = require('body-parser');
+var path = require('path');
+var cookieParser = require('cookie-parser');
+var logger = require('morgan');
+var fs = require('fs');
+var multer = require('multer');
+
+var storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, 'temp/')
+  },
+  filename: function (req, file, cb) {
+    cb(null, file.fieldname + '-' + Date.now() + path.extname(file.originalname))
+  }
+})
 //csrf for request
-const csrf = require('csurf');
+var csrf = require('csurf');
 //Apply gzip compression for all request
-const compression = require('compression');
+var compression = require('compression');
 /*Call Mappers Controller*/
-const mappers = require('./lib/mappers.js');
+var mappers = require('./lib/mappers.js');
 mappers.loadMapper('login');
 /**
  * Express bcrypt for sometext
  */
-const bcrypt = require('bcrypt-nodejs');
+var bcrypt = require('bcrypt-nodejs');
 /**
  * Express Passport Controller
  */
-const passport = require('passport');
-const LocalStrategy = require('passport-local').Strategy;
+var passport = require('passport');
+var LocalStrategy = require('passport-local').Strategy;
 /**
  * Express UUID creator
  */
-const uuid = require('uuid/v4');
+var uuid = require('uuid/v4');
 /**
  * Express Session Controller
  */
-const session = require('express-session');
+var session = require('express-session');
 /**
  * Express Grant Middleware Controller
  */
-const grant = require('grant-express');
+var grant = require('grant-express');
 /**
  * Express MySql Middleware Session saver
  */
-const MySQLStore = require('express-mysql-session')(session);
+var MySQLStore = require('express-mysql-session')(session);
 /**
  * Express MySql
  */
-const MySql = require('mysql');
+var MySql = require('mysql');
 /**
  * Express MySql Middleware
  */
-const MySqlConnection = require('express-myconnection');
+var MySqlConnection = require('express-myconnection');
+/**
+ * Express Validator Middleware for Form Validation
+ */ 
+/********************************************
+ * Express-validator module
+  
+ req.body.comment = 'a <span>comment</span>';
+ req.body.username = '   a user    ';
 
-const expressValidator = require('express-validator');
+ req.sanitize('comment').escape(); // returns 'a &lt;span&gt;comment&lt;/span&gt;'
+ req.sanitize('username').trim(); // returns 'a user'
+ ********************************************/
+var expressValidator = require('express-validator');
 
 /**
  * This module shows flash messages
@@ -57,23 +77,23 @@ const expressValidator = require('express-validator');
  * So, we also have to install and use 
  * cookie-parser & session modules
  */ 
-const flash = require('express-flash');
+var flash = require('express-flash');
 
 /*Config Options For Grant*/
-const config = require('./config-grant.json');
+var config = require('./config-grant.json');
 
 /*Config Options For MySql Connection*/
-const options = require('./config-db-options.json');
-
-/*"ssl": {},*/
-/*options.ssl =
+var options = require('./config-db-options.json');
+/*
+options.ssl =
 {
-    cat: fs.readFileSync(__dirname + '/certs/old-server-ca.pem'),
+    cat: fs.readFileSync(__dirname + '/certs/server-ca.pem'),
     key: fs.readFileSync(__dirname + '/certs/client-key.pem'),
     cert: fs.readFileSync(__dirname + '/certs/client-cert.pem')
-}*/
+}
+*/
 
-const sessionStore = new MySQLStore(options);
+var sessionStore = new MySQLStore(options);
 
 var app = express();
 
@@ -86,9 +106,11 @@ app.set('view engine', 'ejs');
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
-app.use(cookieParser());
+app.use(cookieParser(secretKey));
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(multer({ storage: storage }).fields([{ name: 'fotografia_n', maxCount: 1 }, { name: 'fotografia_e', maxCount: 1 }]));
 app.use(csrf({ cookie: true }));
+app.set('trust proxy', 1) // trust first proxy
 
 app.use(compression());
 
@@ -136,7 +158,7 @@ passport.use(new LocalStrategy(
     } 
     // create the connection to database
     MySql.createConnection(options).query(mappers.onQuery('login','authenticate',param), function (error, results, fields) {
-        if (error) return done(err); 
+        if (error) return done(error); 
         users = results;      
         if (results.length==0)
           return done(null, false, { message: 'Usuario no registrado.' }); 
@@ -185,6 +207,8 @@ app.use(function (req, res) {
   res.write('Sorry that page not exist:\n')
   res.end(JSON.stringify("Error 404", null, 2))
   */
+
+  //console.log(req.status);
   res.render('404', { status: 404, title: 'Error 404' });
 })
 

@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="criterio">
+
+  <select id="catalogo">
+    SELECT
+      pkey Id,
+      nombre Nombre,
+      clave Clave,
+      estatus Estatus
+    FROM
+      criterio
+    WHERE
+      estatus = 'activo'
+  </select>
+
+  <select id="listado">
+    SELECT
+      pkey Id,
+      nombre Nombre
+    FROM
+      criterio
+    WHERE
+      estatus = 'activo'
+  </select>
+
+  <select id="findById">
+    SELECT
+      pkey Id,
+      nombre Nombre,
+      clave Clave,
+      estatus Estatus
+    FROM
+      criterio
+    WHERE
+      pkey = ${id} AND estatus = 'activo'
+  </select>
+
+  <select id="findAllById">
+    SELECT
+      pkey Id,
+      nombre Nombre,
+      clave Clave,
+      estatus Estatus
+    FROM
+      criterio
+    WHERE
+      pkey = ${id}
+  </select>
+
+  <insert id="agregar">
+        INSERT INTO criterio
+        (
+        nombre,
+        clave
+        )
+        VALUES
+        ('${nombre}', '${clave}')
+    </insert>
+
+  <update id="actualizar">
+      UPDATE criterio SET nombre = '${nombre}', clave = '${clave}' WHERE pkey=${id}
+  </update>
+
+  <update id="eliminar">
+      UPDATE criterio SET estatus = 'inactivo' WHERE pkey=${id}
+  </update>
+
+</mapper>

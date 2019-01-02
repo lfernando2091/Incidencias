@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="docente_calificacion">
+
+  <select id="catalogo">
+    SELECT
+      a.pkey                    Id,
+      b.fotografia              Fotografia,
+      b.nombre                  Nombre,
+      b.apellido_paterno        Paterno,
+      b.apellido_materno        Materno,
+      d.pkey                  IdPeriodo,
+      d.nombre                Periodo,
+      a.estatus                 Estatus
+    FROM
+      docente_calificacion a
+    JOIN 
+      docente b ON(a.id_docente = b.pkey)
+    JOIN 
+      periodo d ON(a.id_periodo = d.pkey)
+    WHERE
+      a.estatus = 'activo'
+  </select>
+
+    <select id="listado">
+    SELECT
+      a.pkey                    Id,
+      b.fotografia              Fotografia,
+      b.nombre                  Nombre,
+      b.apellido_paterno        Paterno,
+      b.apellido_materno        Materno,
+      d.pkey                  IdPeriodo,
+      d.nombre                Periodo,
+      a.estatus                 Estatus
+    FROM
+      docente_calificacion a
+    JOIN 
+      docente b ON(a.id_docente = b.pkey)
+    JOIN 
+      periodo d ON(a.id_periodo = d.pkey)
+    WHERE
+      a.estatus = 'activo'
+      <if test="id_docente != null and id_docente !=''">
+        AND a.id_docente = ${id_docente}
+      </if>
+      <if test="id_periodo != null and id_periodo !=''">
+        AND a.id_periodo = ${id_periodo}
+      </if>
+      <choose>
+        <when test="fecha_2 != null and fecha_2 !=''">
+          AND (DATE_FORMAT(a.fecha_registro,'%d/%m/%Y') BETWEEN #{fecha_1} AND #{fecha_2})
+        </when>
+        <otherwise>
+          <if test="fecha_1 != null and fecha_1 !=''">
+            AND DATE_FORMAT(a.fecha_registro,'%d/%m/%Y') = #{fecha_1}            
+          </if>
+        </otherwise>
+      </choose>
+  </select>
+
+  <select id="findById">
+    SELECT
+      a.pkey                    Id,
+      b.fotografia              Fotografia,
+      b.nombre                  Nombre,
+      b.apellido_paterno        Paterno,
+      b.apellido_materno        Materno,
+      d.pkey                  IdPeriodo,
+      d.nombre                Periodo,
+      a.estatus                 Estatus
+    FROM
+      docente_calificacion a
+    JOIN 
+      docente b ON(a.id_docente = b.pkey)
+    JOIN 
+      periodo d ON(a.id_periodo = d.pkey)
+    WHERE
+      a.pkey = ${id} AND a.estatus = 'activo'
+  </select>
+
+  <select id="findAllById">
+    SELECT
+      a.pkey                    Id,
+      b.fotografia              Fotografia,
+      b.nombre                  Nombre,
+      b.apellido_paterno        Paterno,
+      b.apellido_materno        Materno,
+      d.pkey                  IdPeriodo,
+      d.nombre                Periodo,
+      a.estatus                 Estatus
+    FROM
+      docente_calificacion a
+    JOIN 
+      docente b ON(a.id_docente = b.pkey)
+    JOIN 
+      periodo d ON(a.id_periodo = d.pkey)
+    WHERE
+      a.pkey = ${id}
+  </select>
+
+  <insert id="agregar">
+        INSERT INTO docente_calificacion
+        (
+        id_docente,
+        id_periodo
+        )
+        VALUES
+        ('${id_docente}', '${id_periodo}')
+    </insert>
+
+  <update id="actualizar">
+      UPDATE docente_calificacion SET id_periodo = '${id_periodo}', fecha_ultima_mod = NOW() WHERE pkey=${id}
+  </update>
+
+  <update id="eliminar">
+      UPDATE docente_calificacion SET estatus = 'inactivo', fecha_ultima_mod = NOW() WHERE pkey=${id}
+  </update>
+
+</mapper>

@@ -14,6 +14,16 @@
       estatus = 'activo'
   </select>
 
+  <select id="listado">
+    SELECT
+      pkey Id,
+      nombre Nombre
+    FROM
+      periodo
+    WHERE
+      estatus = 'activo'
+  </select>
+
   <select id="findById">
     SELECT
       pkey Id,
@@ -38,7 +48,7 @@
       pkey = ${id}
   </select>
 
-  <insert id="agregarPeriodo">
+  <insert id="agregar">
         INSERT INTO periodo
         (
         nombre,
@@ -48,8 +58,12 @@
         ('${nombre}', '${clave}')
     </insert>
 
-    <update id="actualizarPeriodo">
-        UPDATE periodo SET nombre = '${nombre}', clave = '${clave}'
-    </update>
+  <update id="actualizar">
+      UPDATE periodo SET nombre = '${nombre}', clave = '${clave}' WHERE pkey=${id}
+  </update>
+
+  <update id="eliminar">
+      UPDATE periodo SET estatus = 'inactivo' WHERE pkey=${id}
+  </update>
 
 </mapper>

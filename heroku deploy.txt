@@ -1,0 +1,5 @@
+cd c:\my-app
+
+heroku git:remote -a my-app-name
+
+git push heroku master

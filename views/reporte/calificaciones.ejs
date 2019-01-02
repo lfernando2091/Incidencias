@@ -1,0 +1,96 @@
+<div class="content-padder content-background">
+            <div class="uk-section-small uk-section-default header">
+                <div class="uk-container uk-container-large">
+                    <h1><span class="ion-speedometer"></span> Reporte Calificaciones</h1>
+                    <p>
+                        Bienvenido, <%= user %>
+                    </p>
+                    <ul class="uk-breadcrumb">
+                        <li><a href="/welcome">Home</a></li>
+                        <li><span href="">Filtro</span></li>
+                    </ul>
+                </div>
+            </div>
+        <div class="content-background">
+            <div class="uk-section-small">
+                <div class="uk-container uk-container-large">
+                    <div uk-grid class="uk-child-width-1-1@s uk-child-width-2-3@l">
+                        <div class="uk-width-1-1@s uk-width-1-2@l uk-width-1-1@xl"></div>
+                        <div class="uk-width-1-1@s uk-width-3-2@l uk-width-1-1@xl">
+                            <div class="uk-card uk-card-default">
+                                <div class="uk-card-body">
+
+                                    <center>
+                                        <h2>Filtrar </h2><br />
+                                    </center>
+                            <form action="/docente_calificacion/filtro" method="POST">
+                                <fieldset class="uk-fieldset">
+
+                                    <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+
+                                    <div class="uk-margin uk-grid-small uk-child-width-auto uk-grid">
+                                        <label><input name="is_id_docente_b" class="uk-checkbox" type="checkbox"> Busqueda por Docente</label>
+                                    </div>
+
+                                    <div class="uk-margin">
+                                        <div class="uk-position-relative">
+                                            <select name="id_docente_b" required class="uk-select">
+                                                <% results[0].forEach(function(dt){ %>
+                                                    <option value="<%= dt.Id %>"><%= dt.Nombre %> <%= dt.ApellidoPaterno %> <%= dt.ApellidoMaterno %></option>
+                                                <% })%>
+                                            </select>   
+                                        </div>
+                                    </div>
+
+                                    <div class="uk-margin uk-grid-small uk-child-width-auto uk-grid">
+                                        <label><input name="is_id_periodo_b" class="uk-checkbox" type="checkbox"> Busqueda por Periodo</label>
+                                    </div>
+
+                                    <div class="uk-margin">
+                                        <div class="uk-position-relative">
+                                            <select name="id_periodo_b" required class="uk-select">
+                                                <% results[1].forEach(function(dt){ %>
+                                                    <option value="<%= dt.Id %>"><%= dt.Nombre %></option>
+                                                <% })%>
+                                            </select>  
+                                        </div>
+                                    </div>      
+
+                                    <div class="uk-margin uk-grid-small uk-child-width-auto uk-grid">
+                                        <label><input name="is_fecha_b_1" class="uk-checkbox" type="checkbox"> Busqueda por Fecha 1</label>
+                                    </div>
+
+                                    <div class="uk-margin">
+                                        <div class="uk-position-relative">
+                                            <input type="text" name="fecha_b_1" class="uk-input datepicker-here date-selector" data-language="es"/>
+                                        </div>
+                                    </div>
+
+                                    <div class="uk-margin uk-grid-small uk-child-width-auto uk-grid">
+                                        <label><input name="is_fecha_b_2" class="uk-checkbox" type="checkbox"> Busqueda por Fecha 2</label>
+                                    </div>
+
+                                    <div class="uk-margin">
+                                        <div class="uk-position-relative">
+                                            <input type="text" name="fecha_b_2" class="uk-input datepicker-here date-selector" data-language="es"/>
+                                        </div>
+                                    </div>
+
+                                    <hr />
+
+                                    <center>
+                                        <button class="uk-button uk-button-primary ion-plus" type="submit">Vale</button>
+                                    </center>   
+
+                                </fieldset>
+                            </form>                                
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="uk-width-1-1@s uk-width-1-2@l uk-width-1-1@xl"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+</div>

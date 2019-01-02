@@ -12,7 +12,7 @@
                 </div>
             </div>
         <div class="content-background">
-            <div class="uk-section-large">
+            <div class="uk-section-small">
                 <div class="uk-container uk-container-large">
                     <div uk-grid class="uk-child-width-1-1@s uk-child-width-2-3@l">
                         <div class="uk-width-1-1@s uk-width-1-2@l uk-width-1-1@xl"></div>
@@ -47,7 +47,7 @@
                                                                     <td><%= item.Clave %></td>
                                                                     <td><%= item.Estatus %></td>
                                                                     <td> 
-                                                                        <a class="uk-button uk-button-primary ion-android-delete" href="#modal-eliminar" uk-toggle></a>         
+                                                                        <a class="data-edition uk-button uk-button-primary ion-android-delete" href="#modal-eliminar" uk-toggle data='{"_idU": "<%= item.Id %>"}'></a>         
                                                                     </td>
                                                                     <td> 
                                                                         <a class="data-edition uk-button uk-button-primary ion-edit" href="#modal-editar" uk-toggle data='{"_id": "<%= item.Id %>", "nombre": "<%= item.Nombre %>", "clave": "<%= item.Clave %>"}'></a>         
@@ -60,34 +60,97 @@
                                                 </div>
                                             </div>
 
-                                            <div class="uk-margin">
+                                            <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+
+                                            <hr />
+
+                                            <center>
                                                 <a class="uk-button uk-button-primary ion-plus" href="#modal-nuevo" uk-toggle>&nbsp; Nuevo</a> 
+                                            </center>
+                                        </fieldset>
+                                    </form>
+
+                                   
+                                    <div id="modal-nuevo" class="uk-flex-top" uk-modal>
+                                        <div class="uk-modal-dialog uk-modal-body uk-margin-auto-vertical">
+
+                                            <button class="uk-modal-close-default" type="button" uk-close></button>
+
+                                            <div class="uk-modal-header">
+                                                <h2 class="uk-modal-title">¡Nuevo!</h2>
                                             </div>
 
-                                            <div id="modal-eliminar" class="uk-flex-top" uk-modal>
-                                                <div class="uk-modal-dialog uk-modal-body uk-margin-auto-vertical">
-                                                    <button class="uk-modal-close-default" type="button" uk-close></button>
-                                                    <div class="uk-modal-header">
-                                                        <h2 class="uk-modal-title">¡Oye!</h2>
-                                                    </div>
+                                            <form action="/periodo/agregar" method="POST">
+                                                <fieldset class="uk-fieldset">
+
                                                     <div class="uk-modal-body">
-                                                        <p>¿No manches estas seguro que quieres borrar esto?</p>
+                                                        <div class="uk-margin">
+                                                            <div class="uk-position-relative">
+                                                                <p>¡Por fin agregas algo nuevo, ya tenie rato!</p>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="uk-margin">
+                                                            <div class="uk-position-relative uk-text-emphasis">
+                                                                Nombre:
+                                                            </div>
+                                                        </div>
+                                                        
+                                                        <div class="uk-margin">
+                                                            <div class="uk-position-relative">
+                                                                <span class="uk-form-icon ion-edit"></span>
+                                                                <input name="nombre_n" class="data-edition-area uk-input" type="input" required placeholder="Nombre" <% if(modal_values != null){ %> value="<%= modal_values.nombre_n %>"  <% } %> >
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="uk-margin">
+                                                            <div class="uk-position-relative uk-text-emphasis">
+                                                                Clave:
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="uk-margin">
+                                                            <div class="uk-position-relative">
+                                                                <span class="uk-form-icon ion-edit"></span>
+                                                                <input name="clave_n" class="data-edition-area uk-input" type="input" required placeholder="Clave" <% if(modal_values != null){ %> value="<%= modal_values.clave_n %>"  <% } %> >                  
+                                                            </div>
+                                                            <p class="uk-comment-meta">*La clave debe ser breve ejemplo: PER001, P01</p>
+                                                        </div>
+
+                                                        <% if (alert != null && alert != 'null' && modal == 'modal-nuevo'){ %>
+                                                            <% alert.forEach(function(message){ %>
+                                                            <div class="uk-alert-danger" uk-alert>
+                                                                <a class="uk-alert-close" uk-close></a>
+                                                                <p><%= message %></p>
+                                                            </div>
+                                                            <% })%> 
+                                                        <% } %> 
+
+                                                        <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+                                                    
                                                     </div>
+
                                                     <div class="uk-modal-footer uk-text-right">
-                                                        <button class="uk-button uk-button-default uk-modal-close" type="button">No</button>
-                                                        <button class="uk-button uk-button-primary" type="button">Si</button>
+                                                        <button class="uk-button uk-button-default uk-modal-close" type="button" onclick="onCancelModal()">Nop</button>
+                                                        <button class="uk-button uk-button-primary" type="submit">Vale</button>
                                                     </div>
-                                                </div>
+
+                                                </fieldset>
+                                            </form>
+                                        </div>
+                                    </div>
+
+                                    <div id="modal-editar" class="uk-flex-top" uk-modal>
+                                        <div class="uk-modal-dialog uk-modal-body uk-margin-auto-vertical">
+
+                                            <button class="uk-modal-close-default" type="button" uk-close></button>
+
+                                            <div class="uk-modal-header">
+                                                <h2 class="uk-modal-title">¡Editar!</h2>
                                             </div>
 
-                                            <div id="modal-editar" class="uk-flex-top" uk-modal>
-                                                <div class="uk-modal-dialog uk-modal-body uk-margin-auto-vertical">
-
-                                                    <button class="uk-modal-close-default" type="button" uk-close></button>
-
-                                                    <div class="uk-modal-header">
-                                                        <h2 class="uk-modal-title">¡Editar!</h2>
-                                                    </div>
+                                            <form action="/periodo/editar" method="POST">
+                                                <fieldset class="uk-fieldset">
 
                                                     <div class="uk-modal-body">
 
@@ -95,9 +158,9 @@
                                                             <div class="uk-position-relative">
                                                                 <p>¡Recuerda solo modificar cosas que entiendas, por que luego se descomponen!</p>
                                                             </div>
-                                                        </div>
+                                                        </div> 
 
-                                                        <input id="_id" type="hidden" name="_id">
+                                                        <input id="_id" type="hidden" class="data-edition-area" name="_id">
 
                                                         <div class="uk-margin">
                                                             <div class="uk-position-relative uk-text-emphasis">
@@ -108,7 +171,7 @@
                                                         <div class="uk-margin">
                                                             <div class="uk-position-relative">
                                                                 <span class="uk-form-icon ion-edit"></span>
-                                                                <input id="nombre" name="nombre" class="uk-input" type="input" value="hola" placeholder="Nombre">
+                                                                <input id="nombre" name="nombre_e" class="data-edition-area uk-input" type="input" required placeholder="Nombre" <% if(modal_values != null){ %> value="<%= modal_values.nombre_e %>"  <% } %> >
                                                             </div>
                                                         </div>
 
@@ -121,104 +184,62 @@
                                                         <div class="uk-margin">
                                                             <div class="uk-position-relative">
                                                                 <span class="uk-form-icon ion-edit"></span>
-                                                                <input id="clave" name="clave" class="uk-input" type="input" placeholder="Clave">
+                                                                <input id="clave" name="clave_e" class="data-edition-area uk-input" type="input" required placeholder="Clave" <% if(modal_values != null){ %> value="<%= modal_values.clave_e %>"  <% } %>>
                                                             </div>
                                                         </div>
 
                                                     </div>
 
-                                                    <div class="uk-modal-footer uk-text-right">
-                                                        <button class="uk-button uk-button-default uk-modal-close" type="button">Olvidalo</button>
-                                                        <button class="uk-button uk-button-primary" type="button">Cambiar</button>
-                                                    </div>
+                                                    <% if (alert != null && alert != 'null' && modal == 'modal-editar'){ %>
+                                                        <% alert.forEach(function(message){ %>
+                                                            <div class="uk-alert-danger" uk-alert>
+                                                                <a class="uk-alert-close" uk-close></a>
+                                                                <p><%= message %></p>
+                                                            </div>
+                                                        <% })%> 
+                                                    <% } %> 
 
-                                                </div>
+                                                    <div class="uk-modal-footer uk-text-right">
+                                                        <button class="uk-button uk-button-default uk-modal-close" onclick="onCancelModal()" type="button">Olvidalo</button>
+                                                        <button class="uk-button uk-button-primary" type="submit">Cambiar</button>
+                                                    </div>                                                    
+
+                                                    <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+
+                                                </fieldset>
+                                            </form>
+
+                                        </div>
+                                    </div>
+
+                                    <div id="modal-eliminar" class="uk-flex-top" uk-modal>
+                                        <div class="uk-modal-dialog uk-modal-body uk-margin-auto-vertical">
+                                            <button class="uk-modal-close-default" type="button" uk-close></button>
+                                                    
+                                            <div class="uk-modal-header">
+                                                <h2 class="uk-modal-title">¡Oye!</h2>
                                             </div>
 
-                                            <div id="modal-nuevo" class="uk-flex-top" uk-modal>
-                                                <div class="uk-modal-dialog uk-modal-body uk-margin-auto-vertical">
-
-                                                    <button class="uk-modal-close-default" type="button" uk-close></button>
-
-                                                    <div class="uk-modal-header">
-                                                        <h2 class="uk-modal-title">¡Nuevo!</h2>
-                                                    </div>
+                                            <form action="/periodo/eliminar" method="POST">
+                                                <fieldset class="uk-fieldset">
 
                                                     <div class="uk-modal-body">
-
-                                                        <div class="uk-margin">
-                                                            <div class="uk-position-relative">
-                                                                <p>¡Por fin te dignas a agregar algo nuevo, ya tenie rato!</p>
-                                                            </div>
-                                                        </div>
-
-                                                        <div class="uk-margin">
-                                                            <div class="uk-position-relative uk-text-emphasis">
-                                                                Nombre:
-                                                            </div>
-                                                        </div>
-                                                        
-                                                        <div class="uk-margin">
-                                                            <div class="uk-position-relative">
-                                                                <span class="uk-form-icon ion-edit"></span>
-                                                                <input name="nombre" class="uk-input" type="input" placeholder="Nombre">
-                                                            </div>
-                                                        </div>
-
-                                                        <div class="uk-margin">
-                                                            <div class="uk-position-relative uk-text-emphasis">
-                                                                Clave:
-                                                            </div>
-                                                        </div>
-
-                                                        <div class="uk-margin">
-                                                            <div class="uk-position-relative">
-                                                                <span class="uk-form-icon ion-edit"></span>
-                                                                <input name="clave" class="uk-input" type="input" placeholder="Clave">
-                                                            </div>
-                                                        </div>
-
+                                                        <p>¿No manches estas seguro que quieres borrar esto?</p>
+                                                        <input id="_idU" type="hidden" class="data-edition-area" name="_idU">
                                                     </div>
 
                                                     <div class="uk-modal-footer uk-text-right">
-                                                        <button class="uk-button uk-button-default uk-modal-close" type="button">Nop</button>
-                                                        <button class="uk-button uk-button-primary" type="button">Vale</button>
+                                                        <button class="uk-button uk-button-default uk-modal-close" type="button" onclick="onCancelModal()">No</button>
+                                                        <button class="uk-button uk-button-primary" type="submit">Si</button>
                                                     </div>
 
-                                                </div>
-                                            </div>
+                                                    <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+                                                </fieldset>
+                                            </form>
 
-                                            <div class="uk-margin">
-                                                <div class="uk-position-relative">
-                                                    <span class="uk-form-icon ion-locked"></span>
-                                                    <input name="password" class="uk-input" type="password" placeholder="Password">
-                                                </div>
-                                            </div>
+                                        </div>
+                                    </div>                                       
 
-                                            <div class="uk-margin">
-                                                <a href="#">¿Olvidaste tu password?</a>
-                                            </div>
-
-                                            <div class="uk-margin">
-                                                <button type="submit" class="uk-button uk-button-primary">
-                                                    <span class="ion-forward"></span>&nbsp; Login
-                                                </button>
-                                            </div>
-
-                                            <input type="hidden" name="_csrf" value="<%= csrfToken %>">
-
-                                            <hr />
-
-                                            <center>
-                                                <p>
-                                                    ¿No tienes cuenta?
-                                                </p>
-                                                <a href="/signup" class="uk-button uk-button-default">
-                                                    <span class="ion-android-person-add"></span>&nbsp; Registrar
-                                                </a>
-                                            </center>
-                                        </fieldset>
-                                    </form>
                                 </div>
                             </div>
                         </div>

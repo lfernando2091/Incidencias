@@ -1,0 +1,568 @@
+<div class="content-padder content-background">
+            <div class="uk-section-small uk-section-default header">
+                <div class="uk-container uk-container-large">
+                    <h1><span class="ion-speedometer"></span> Docente</h1>
+                    <p>
+                        Bienvenido, <%= user %>
+                    </p>
+                    <ul class="uk-breadcrumb">
+                        <li><a href="/welcome">Home</a></li>
+                        <li><span href="">Docente</span></li>
+                    </ul>
+                </div>
+            </div>
+        <div class="content-background">
+            <div class="uk-section-small">
+                <div class="uk-container uk-container-large">
+                    <div uk-grid class="uk-child-width-1-1@s uk-child-width-2-3@l">
+                        <div class="uk-width-1-1@s uk-width-1-2@l uk-width-1-1@xl"></div>
+                        <div class="uk-width-1-1@s uk-width-3-2@l uk-width-1-1@xl">
+                            <div class="uk-card uk-card-default">
+                                <div class="uk-card-body">
+                                    <center>
+                                        <h2>Registros </h2><br />
+                                    </center>
+                                    <form method="POST">
+                                        <fieldset class="uk-fieldset">
+
+                                            <div class="uk-margin">
+                                                <div class="uk-position-relative">
+                                                    <div class="uk-overflow-container">
+                                                    <table class="uk-table uk-table-hover uk-table-striped data-table display" style="width:100%">
+                                                        <thead>
+                                                            <tr>
+                                                                <th>Id</th>
+                                                                <th>Nombre</th>
+                                                                <th>Paterno</th>
+                                                                <th>Materno</th>
+                                                                <th></th>
+                                                                <th></th>
+                                                                <th></th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <% results.forEach(function(item){ %>
+                                                                <tr>
+                                                                    <td><%= item.Id %></td>
+                                                                    <td><%= item.Nombre %></td>
+                                                                    <td><%= item.ApellidoPaterno %></td>
+                                                                    <td><%= item.ApellidoMaterno %></td>
+                                                                    <td> 
+                                                                        <a class="data-view uk-button uk-button-primary ion-eye" href="#modal-ver" uk-toggle data='<%= JSON.stringify(item) %>'></a>         
+                                                                    </td>
+                                                                    <td> 
+                                                                        <a class="data-edition uk-button uk-button-primary ion-android-delete" href="#modal-eliminar" uk-toggle data='{"_idU": "<%= item.Id %>"}'></a>         
+                                                                    </td>
+                                                                    <td> 
+                                                                        <a class="data-edition uk-button uk-button-primary ion-edit" href="#modal-editar" uk-toggle data='{"_id": "<%= item.Id %>", "correo": "<%= item.Correo %>", "telefono": "<%= item.NumeroTelefonico %>", "fotografia": "<%= item.Fotografia %>", "horario": "<%= item.TipoHorario %>"}'></a>         
+                                                                    </td>
+                                                                </tr>
+                                                            <% })%>
+                                                        </tbody>
+                                                    </table>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+
+                                            <hr />
+
+                                            <center>
+                                                <a class="uk-button uk-button-primary ion-plus" href="#modal-nuevo" uk-toggle>&nbsp; Nuevo</a> 
+                                            </center>
+                                        </fieldset>
+                                    </form>
+
+                                    <div id="modal-ver" class="uk-flex-top" uk-modal>
+                                        <div class="uk-modal-dialog uk-modal-body uk-margin-auto-vertical">
+
+                                            <button class="uk-modal-close-default" type="button" uk-close></button>
+
+                                            <div class="uk-modal-header">
+                                                <h2 class="uk-modal-title">¡Ver!</h2>
+                                            </div>
+
+                                                    <div class="uk-modal-body">
+                                                        <div class="uk-margin">
+                                                            <div class="uk-position-relative">
+                                                                <p>¡Sabemos que parte de la información aqui precente son confideciales, asi que ten cuidado!</p>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="uk-text-center js-upload">
+                                                            <div class="uk-inline-clip uk-transition-toggle uk-dark uk-link" tabindex="0" uk-form-custom>                                
+                                                                <img id="Fotografia" src="" alt="avatar" height="100px" width="100px">
+                                                            </div>
+                                                        </div>
+
+
+                                                        <div class="uk-margin">
+                                                            <div class="uk-position-relative uk-text-emphasis">
+                                                                Id:
+                                                            </div>
+                                                        </div>
+                                                        
+                                                        <div class="uk-margin">
+                                                            <div id="Id" class="uk-position-relative uk-background-muted uk-padding-small"></div>
+                                                        </div>
+
+                                                        <div class="uk-margin">
+                                                            <div class="uk-position-relative uk-text-emphasis">
+                                                                Nombre:
+                                                            </div>
+                                                        </div>
+                                                        
+                                                        <div class="uk-margin">
+                                                            <div id="Nombre" class="uk-position-relative uk-background-muted uk-padding-small"></div>
+                                                        </div>
+
+                                                        <div class="uk-margin">
+                                                            <div class="uk-position-relative uk-text-emphasis">
+                                                                Apellido Paterno:
+                                                            </div>
+                                                        </div>
+                                                        
+                                                        <div class="uk-margin">
+                                                            <div id="ApellidoPaterno" class="uk-position-relative uk-background-muted uk-padding-small"></div>
+                                                        </div>
+
+                                                        <div class="uk-margin">
+                                                            <div class="uk-position-relative uk-text-emphasis">
+                                                                Apellido Materno:
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="uk-margin">
+                                                            <div id="ApellidoMaterno" class="uk-position-relative uk-background-muted uk-padding-small"></div>
+                                                        </div>
+
+                                                        <div class="uk-margin">
+                                                            <div class="uk-position-relative uk-text-emphasis">
+                                                                Correo Electronico:
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="uk-margin">
+                                                            <div id="Correo" class="uk-position-relative uk-background-muted uk-padding-small"></div>
+                                                        </div>
+
+                                                        <div class="uk-margin">
+                                                            <div class="uk-position-relative uk-text-emphasis">
+                                                                Fecha Nacimiento:
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="uk-margin">
+                                                            <div id="FechaNacimiento" class="uk-position-relative uk-background-muted uk-padding-small"></div>
+                                                        </div>
+
+                                                        
+                                                        <div class="uk-margin">
+                                                            <div class="uk-position-relative uk-text-emphasis">
+                                                                Cedula Profesional:
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="uk-margin">
+                                                            <div id="CedulaProfesional" class="uk-position-relative uk-background-muted uk-padding-small"></div>
+                                                        </div>
+
+                                                        <div class="uk-margin">
+                                                            <div class="uk-position-relative uk-text-emphasis">
+                                                                Numero Telefonico:
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="uk-margin">
+                                                            <div id="NumeroTelefonico" class="uk-position-relative uk-background-muted uk-padding-small"></div>
+                                                        </div>
+
+                                                        <div class="uk-margin">
+                                                            <div class="uk-position-relative uk-text-emphasis">
+                                                                Tipo Horario:
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="uk-margin">
+                                                            <div id="TipoHorario" class="uk-position-relative uk-background-muted uk-padding-small"></div>
+                                                        </div>
+                                                    
+                                                    </div>
+
+                                                    <div class="uk-modal-footer uk-text-right">
+                                                        <button class="uk-button uk-button-primary uk-modal-close" type="button">Vale</button>
+                                                    </div>
+
+                                        </div>
+                                    </div>
+                                   
+                                    <div id="modal-nuevo" class="uk-flex-top" uk-modal>
+                                        <div class="uk-modal-dialog uk-modal-body uk-margin-auto-vertical">
+
+                                            <button class="uk-modal-close-default" type="button" uk-close></button>
+
+                                            <div class="uk-modal-header">
+                                                <h2 class="uk-modal-title">¡Nuevo!</h2>
+                                            </div>
+
+                                            <form action="/docente/agregar" method="POST" enctype="multipart/form-data">
+                                                <fieldset class="uk-fieldset">
+
+                                                    <div class="uk-modal-body">
+                                                        <div class="uk-margin">
+                                                            <div class="uk-position-relative">
+                                                                <p>¡Por fin agregas algo nuevo, ya tenie rato!</p>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="uk-margin">
+                                                            <div class="uk-position-relative uk-text-emphasis">
+                                                                Nombre:
+                                                            </div>
+                                                        </div>
+                                                        
+                                                        <div class="uk-margin">
+                                                            <div class="uk-position-relative">
+                                                                <span class="uk-form-icon ion-edit"></span>
+                                                                <input name="nombre_n" class="data-edition-area uk-input" type="input" required placeholder="Nombre" <% if(modal_values != null){ %> value="<%= modal_values.nombre_n %>"  <% } %> >
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="uk-margin">
+                                                            <div class="uk-position-relative uk-text-emphasis">
+                                                                Apellido Paterno:
+                                                            </div>
+                                                        </div>
+                                                        
+                                                        <div class="uk-margin">
+                                                            <div class="uk-position-relative">
+                                                                <span class="uk-form-icon ion-edit"></span>
+                                                                <input name="apellido_paterno_n" class="data-edition-area uk-input" type="input" required placeholder="Apellido Paterno" <% if(modal_values != null){ %> value="<%= modal_values.apellido_paterno_n %>"  <% } %> >
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="uk-margin">
+                                                            <div class="uk-position-relative uk-text-emphasis">
+                                                                Apellido Materno:
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="uk-margin">
+                                                            <div class="uk-position-relative">
+                                                                <span class="uk-form-icon ion-edit"></span>
+                                                                <input name="apellido_materno_n" class="data-edition-area uk-input" type="input" required placeholder="Apellido Materno" <% if(modal_values != null){ %> value="<%= modal_values.apellido_materno_n %>"  <% } %> >                  
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="uk-margin">
+                                                            <div class="uk-position-relative uk-text-emphasis">
+                                                                Correo Electronico:
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="uk-margin">
+                                                            <div class="uk-position-relative">
+                                                                <span class="uk-form-icon ion-edit"></span>
+                                                                <input name="correo_electronico_n" class="data-edition-area uk-input" type="email" required placeholder="Correo Electronico" <% if(modal_values != null){ %> value="<%= modal_values.correo_electronico_n %>"  <% } %> >                  
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="uk-margin">
+                                                            <div class="uk-position-relative uk-text-emphasis">
+                                                                Fecha Nacimiento:
+                                                            </div>
+                                                        </div>                     
+
+                                                        <div class="uk-margin">
+                                                            <div class="uk-position-relative">
+                                                                <span class="uk-form-icon ion-edit"></span>
+                                                                <input name="fecha_nacimiento_n" class="data-edition-area uk-input" type="date" required placeholder="Fecha Nacimiento" <% if(modal_values != null){ %> value="<%= modal_values.fecha_nacimiento_n %>"  <% } %> >                  
+                                                            </div>
+                                                        </div>
+
+                                                        
+                                                        <div class="uk-margin">
+                                                            <div class="uk-position-relative uk-text-emphasis">
+                                                                Cedula Profesional:
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="uk-margin">
+                                                            <div class="uk-position-relative">
+                                                                <span class="uk-form-icon ion-edit"></span>
+                                                                <input name="cedula_profesional_n" class="data-edition-area uk-input" type="input" required placeholder="Cedula Profesional" <% if(modal_values != null){ %> value="<%= modal_values.cedula_profesional_n %>"  <% } %> >                  
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="uk-margin">
+                                                            <div class="uk-position-relative uk-text-emphasis">
+                                                                Numero Telefonico:
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="uk-margin">
+                                                            <div class="uk-position-relative">
+                                                                <span class="uk-form-icon ion-edit"></span>
+                                                                <input name="numero_telefonico_n" class="data-edition-area uk-input" type="tel" placeholder="888 888 8888" pattern="[0-9]{3} [0-9]{3} [0-9]{4}" maxlength="12" required placeholder="Telefono" <% if(modal_values != null){ %> value="<%= modal_values.numero_telefonico_n %>"  <% } %> >                  
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="uk-margin">
+                                                            <div class="uk-position-relative uk-text-emphasis">
+                                                                Fotografia:
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="uk-margin">
+                                                            <div class="uk-position-relative">
+                                                                <span class="uk-form-icon ion-edit"></span>
+                                                                <input id="fotografia_n" name="fotografia_n" class="data-edition-area uk-input" type="file" accept="image/*" <% if(modal_values != null){ %> value="<%= modal_values.fotografia_n %>"  <% } %> >                  
+                                                            </div>
+                                                            <p class="uk-comment-meta">*La resolución de las imagenes tener una proporción de relación 1:1</p>
+                                                        </div>
+
+                                                        <div class="uk-margin">
+                                                            <div class="uk-position-relative uk-text-emphasis">
+                                                                Tipo Horario:
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="uk-margin">
+                                                            <div class="uk-position-relative">
+                                                                <select name="tipo_horario_n" class="uk-select">
+                                                                <option 
+                                                                    <% if(modal_values != null){ %>
+                                                                        <% if(modal_values.tipo_horario_n == 'parcial'){ %> 
+                                                                            selected  
+                                                                        <% } %>
+                                                                    <% } %>
+                                                                value="parcial">Parcial</option>
+
+                                                                <option 
+                                                                    <% if(modal_values != null){ %>
+                                                                        <% if(modal_values.tipo_horario_n == 'completo'){ %> 
+                                                                            selected  
+                                                                        <% } %>
+                                                                    <% } %>
+                                                                 value="completo">Completo</option>
+                                                                </select>          
+                                                            </div>                                                     
+                                                        </div>
+
+                                                        <% if (alert != null && alert != 'null' && modal == 'modal-nuevo'){ %>
+                                                            <% alert.forEach(function(message){ %>
+                                                            <div class="uk-alert-danger" uk-alert>
+                                                                <a class="uk-alert-close" uk-close></a>
+                                                                <p><%= message %></p>
+                                                            </div>
+                                                            <% })%> 
+                                                        <% } %> 
+
+                                                        <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+                                                    
+                                                    </div>
+
+                                                    <div class="uk-modal-footer uk-text-right">
+                                                        <button class="uk-button uk-button-default uk-modal-close" type="button" onclick="onCancelModal()">Nop</button>
+                                                        <button class="uk-button uk-button-primary" type="submit">Vale</button>
+                                                    </div>
+
+                                                </fieldset>
+                                            </form>
+                                        </div>
+                                    </div>
+
+                                    <div id="modal-editar" class="uk-flex-top" uk-modal>
+                                        <div class="uk-modal-dialog uk-modal-body uk-margin-auto-vertical">
+
+                                            <button class="uk-modal-close-default" type="button" uk-close></button>
+
+                                            <div class="uk-modal-header">
+                                                <h2 class="uk-modal-title">¡Editar!</h2>
+                                            </div>
+
+                                            <form action="/docente/editar" method="POST" enctype="multipart/form-data">
+                                                <fieldset class="uk-fieldset">
+
+                                                    <div class="uk-modal-body">
+
+                                                        <div class="uk-margin">
+                                                            <div class="uk-position-relative">
+                                                                <p>¡Recuerda solo modificar cosas que entiendas, por que luego se descomponen!</p>
+                                                            </div>
+                                                        </div> 
+
+                                                        <input id="_id" type="hidden" class="data-edition-area" name="_id">
+
+                                                        <div class="uk-margin">
+                                                            <div class="uk-position-relative uk-text-emphasis">
+                                                                Correo:
+                                                            </div>
+                                                        </div>
+                                                        
+                                                        <div class="uk-margin">
+                                                            <div class="uk-position-relative">
+                                                                <span class="uk-form-icon ion-edit"></span>
+                                                                <input id="correo" name="correo_electronico_e" class="data-edition-area uk-input" type="emial" placeholder="Correo" required <% if(modal_values != null){ %> value="<%= modal_values.correo_electronico_e %>"  <% } %> >
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="uk-margin">
+                                                            <div class="uk-position-relative uk-text-emphasis">
+                                                                Numero Telefonico:
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="uk-margin">
+                                                            <div class="uk-position-relative">
+                                                                <span class="uk-form-icon ion-edit"></span>
+                                                                <input id="telefono" name="numero_telefonico_e" class="data-edition-area uk-input" type="tel" placeholder="888 888 8888" pattern="[0-9]{3} [0-9]{3} [0-9]{4}" maxlength="12" required <% if(modal_values != null){ %> value="<%= modal_values.numero_telefonico_e %>"  <% } %>>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="uk-margin">
+                                                            <div class="uk-position-relative uk-text-emphasis">
+                                                                Fotografia:
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="uk-margin">
+                                                            <div class="uk-position-relative">
+                                                                <span class="uk-form-icon ion-edit"></span>
+                                                                <input id="fotografia" name="fotografia_e" class="data-edition-area uk-input" type="file" accept="image/*" <% if(modal_values != null){ %> value="<%= modal_values.fotografia_e %>"  <% } %> >                  
+                                                            </div>
+                                                            <p class="uk-comment-meta">*La resolución de las imagenes tener una proporción de relación 1:1</p>
+                                                        </div>
+
+                                                        <div class="uk-margin">
+                                                            <div class="uk-position-relative uk-text-emphasis">
+                                                                Tipo Horario:
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="uk-margin">
+                                                            <div class="uk-position-relative">
+                                                                <select id="horario" name="tipo_horario_e" class="data-edition-area uk-select">
+                                                                <option 
+                                                                    <% if(modal_values != null){ %>
+                                                                        <% if(modal_values.tipo_horario_e == 'parcial'){ %> 
+                                                                            selected  
+                                                                        <% } %>
+                                                                    <% } %>
+                                                                value="parcial">Parcial</option>
+
+                                                                <option 
+                                                                    <% if(modal_values != null){ %>
+                                                                        <% if(modal_values.tipo_horario_e == 'completo'){ %> 
+                                                                            selected  
+                                                                        <% } %>
+                                                                    <% } %>
+                                                                 value="completo">Completo</option>
+                                                                </select>          
+                                                            </div>
+                                                        </div>
+
+                                                    </div>
+
+                                                    <% if (alert != null && alert != 'null' && modal == 'modal-editar'){ %>
+                                                        <% alert.forEach(function(message){ %>
+                                                            <div class="uk-alert-danger" uk-alert>
+                                                                <a class="uk-alert-close" uk-close></a>
+                                                                <p><%= message %></p>
+                                                            </div>
+                                                        <% })%> 
+                                                    <% } %> 
+
+                                                    <div class="uk-modal-footer uk-text-right">
+                                                        <button class="uk-button uk-button-default uk-modal-close" onclick="onCancelModal()" type="button">Olvidalo</button>
+                                                        <button class="uk-button uk-button-primary" type="submit">Cambiar</button>
+                                                    </div>                                                    
+
+                                                    <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+
+                                                </fieldset>
+                                            </form>
+
+                                        </div>
+                                    </div>
+
+                                    <div id="modal-eliminar" class="uk-flex-top" uk-modal>
+                                        <div class="uk-modal-dialog uk-modal-body uk-margin-auto-vertical">
+                                            <button class="uk-modal-close-default" type="button" uk-close></button>
+                                                    
+                                            <div class="uk-modal-header">
+                                                <h2 class="uk-modal-title">¡Oye!</h2>
+                                            </div>
+
+                                            <form action="/docente/eliminar" method="POST">
+                                                <fieldset class="uk-fieldset">
+
+                                                    <div class="uk-modal-body">
+                                                        <p>¿No manches estas seguro que quieres borrar esto?</p>
+
+                                                        <div class="uk-margin">
+                                                            <div class="uk-position-relative uk-text-emphasis">
+                                                                Comentario:
+                                                            </div>
+                                                        </div>
+                                                        
+                                                        <div class="uk-margin">
+                                                            <div class="uk-position-relative">
+                                                                <span class="uk-form-icon ion-edit"></span>
+                                                                <input name="comentario_x" class="data-edition-area uk-input" type="input" required placeholder="Razón o motivo de la baja" <% if(modal_values != null){ %> value="<%= modal_values.nombre_x %>"  <% } %> >
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="uk-margin">
+                                                            <div class="uk-position-relative uk-text-emphasis">
+                                                                Tipo Baja:
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="uk-margin">
+                                                            <div class="uk-position-relative">
+                                                                <select name="tipo_baja_x" class="uk-select">
+                                                                <option 
+                                                                    <% if(modal_values != null){ %>
+                                                                        <% if(modal_values.tipo_baja_x == 'temporal'){ %> 
+                                                                            selected  
+                                                                        <% } %>
+                                                                    <% } %>
+                                                                value="temporal">Temporal</option>
+
+                                                                <option 
+                                                                    <% if(modal_values != null){ %>
+                                                                        <% if(modal_values.tipo_baja_x == 'definitivo'){ %> 
+                                                                            selected  
+                                                                        <% } %>
+                                                                    <% } %>
+                                                                 value="definitivo">Definitivo</option>
+                                                                </select>          
+                                                            </div>                                                     
+                                                        </div>
+
+                                                        <input id="_idU" type="hidden" class="data-edition-area" name="_idU">
+                                                    </div>
+
+                                                    <div class="uk-modal-footer uk-text-right">
+                                                        <button class="uk-button uk-button-default uk-modal-close" type="button" onclick="onCancelModal()">No</button>
+                                                        <button class="uk-button uk-button-primary" type="submit">Si</button>
+                                                    </div>
+
+                                                    <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+                                                </fieldset>
+                                            </form>
+
+                                        </div>
+                                    </div>                                       
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="uk-width-1-1@s uk-width-1-2@l uk-width-1-1@xl"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+</div>
