@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="docente_calificacion_criterio">
+
+  <select id="catalogo">
+    SELECT
+      a.pkey                  Id,
+      a.calificacion          Calificacion,
+      c.pkey                  IdCriterio,
+      c.nombre                Criterio,
+      a.estatus               Estatus
+    FROM
+      docente_calificacion_criterio a
+    JOIN
+      docente_calificacion b ON(a.id_docente_calificacion = b.pkey)
+    JOIN
+      criterio c ON(a.id_criterio = c.pkey)
+    WHERE
+      a.estatus = 'activo' AND a.id_docente_calificacion = ${id_docente_calificacion}
+  </select>
+
+  <select id="findById">
+    SELECT
+      a.pkey                  Id,
+      a.calificacion          Calificacion,
+      c.nombre                Criterio
+    FROM
+      docente_calificacion_criterio a
+    JOIN
+      docente_calificacion b ON(a.id_docente_calificacion = b.pkey)
+    JOIN
+      criterio c ON(a.id_criterio = c.pkey)
+    WHERE
+      a.estatus = 'activo' AND a.id_docente_calificacion = ${id_docente_calificacion}
+  </select>
+
+  <select id="findAllById">
+    SELECT
+      a.pkey                  Id,
+      a.calificacion          Calificacion,
+      c.pkey                  IdCriterio,
+      c.nombre                Criterio,
+      a.estatus               Estatus
+    FROM
+      docente_calificacion_criterio a
+    JOIN
+      docente_calificacion b ON(a.id_docente_calificacion = b.pkey)
+    JOIN
+      criterio c ON(a.id_criterio = c.pkey)
+    WHERE
+      a.id_docente_calificacion = ${id_docente_calificacion}
+  </select>
+
+  <insert id="agregar">
+        INSERT INTO docente_calificacion_criterio
+        (
+        id_docente_calificacion,
+        id_criterio,
+        calificacion
+        )
+        VALUES
+        ('${id_docente_calificacion}', '${id_criterio}', '${calificacion}')
+    </insert>
+
+  <update id="actualizar">
+      UPDATE docente_calificacion_criterio SET calificacion = '${calificacion}',fecha_ultima_mod = NOW() WHERE pkey=${id}
+  </update>
+
+  <update id="eliminar">
+      UPDATE docente_calificacion_criterio SET estatus = 'inactivo', fecha_ultima_mod = NOW() WHERE pkey=${id}
+  </update>
+
+</mapper>

@@ -1,0 +1,172 @@
+<div class="content-padder content-background">
+            <div class="uk-section-small uk-section-default header">
+                <div class="uk-container uk-container-large">
+                    <h1><span class="ion-speedometer"></span> Reporte Calificaciones</h1>
+                    <p>
+                        Bienvenido, <%= user %>
+                    </p>
+                    <ul class="uk-breadcrumb">
+                        <li><a href="/welcome">Home</a></li>
+                        <li><a href="/reporte_calificaciones">Filtro</a></li>
+                        <li><span href="">Reporte Calificaciones</span></li>
+                    </ul>
+                </div>
+            </div>
+        <div class="content-background">
+            <div class="uk-section-small">
+                <div class="uk-container uk-container-large">
+                    <div uk-grid class="uk-child-width-1-1@s uk-child-width-2-3@l">
+                        <div class="uk-width-1-1@s uk-width-1-2@l uk-width-1-1@xl"></div>
+                        <div class="uk-width-1-1@s uk-width-3-2@l uk-width-1-1@xl">
+                            <div class="uk-card uk-card-default">
+                                <div class="uk-card-body">
+
+                                    <center>
+                                        <h2>Registros </h2><br />
+                                    </center>
+                                    <form method="POST">
+                                        <fieldset class="uk-fieldset">
+                                            <div class="uk-margin">
+                                                <div class="uk-position-relative">
+                                                    <div class="uk-overflow-container">
+                                                    <table class="uk-table uk-table-hover uk-table-striped data-table display" style="width:100%">
+                                                        <thead>
+                                                            <tr>
+                                                                <th>Id</th>
+                                                                <th>Nombre</th>
+                                                                <th>Paterno</th>
+                                                                <th>Materno</th>
+                                                                <th></th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <% results.forEach(function(item){ %>
+                                                                <tr>
+                                                                    <td><%= item.Id %></td>
+                                                                    <td><%= item.Nombre %></td>
+                                                                    <td><%= item.Paterno %></td>
+                                                                    <td><%= item.Materno %></td>
+                                                                    <td> 
+                                                                        <a class="data-view uk-button uk-button-primary ion-eye" href="#modal-ver" uk-toggle data='<%= JSON.stringify(item) %>'></a>         
+                                                                    </td>
+                                                                </tr>
+                                                            <% })%>
+                                                        </tbody>
+                                                    </table>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+
+                                            <hr />
+
+                                            <center>
+                                                <a class="uk-button uk-button-primary ion-plus" href="#modal-nuevo" uk-toggle>&nbsp; Generar</a> 
+                                            </center>
+                                        </fieldset>
+                                    </form>
+
+                                   <div id="modal-ver" class="uk-flex-top" uk-modal>
+                                        <div class="uk-modal-dialog uk-modal-body uk-margin-auto-vertical">
+
+                                            <button class="uk-modal-close-default" type="button" uk-close></button>
+
+                                            <div class="uk-modal-header">
+                                                <h2 class="uk-modal-title">¡Ver!</h2>
+                                            </div>
+
+                                                    <div class="uk-modal-body">
+                                                        <div class="uk-margin">
+                                                            <div class="uk-position-relative">
+                                                                <p>¡Sabemos que parte de la información aqui precente son confideciales, asi que ten cuidado!</p>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="uk-text-center js-upload">
+                                                            <div class="uk-inline-clip uk-transition-toggle uk-dark uk-link" tabindex="0" uk-form-custom>                                
+                                                                <img id="Fotografia" src="" alt="avatar" height="100px" width="100px">
+                                                            </div>
+                                                        </div>
+
+
+                                                        <div class="uk-margin">
+                                                            <div class="uk-position-relative uk-text-emphasis">
+                                                                Id:
+                                                            </div>
+                                                        </div>
+                                                        
+                                                        <div class="uk-margin">
+                                                            <div id="Id" class="uk-position-relative uk-background-muted uk-padding-small"></div>
+                                                        </div>
+
+                                                        <div class="uk-margin">
+                                                            <div class="uk-position-relative uk-text-emphasis">
+                                                                Nombre:
+                                                            </div>
+                                                        </div>
+                                                        
+                                                        <div class="uk-margin">
+                                                            <div id="Nombre" class="uk-position-relative uk-background-muted uk-padding-small"></div>
+                                                        </div>
+
+                                                        <div class="uk-margin">
+                                                            <div class="uk-position-relative uk-text-emphasis">
+                                                                Apellido Paterno:
+                                                            </div>
+                                                        </div>
+                                                        
+                                                        <div class="uk-margin">
+                                                            <div id="Paterno" class="uk-position-relative uk-background-muted uk-padding-small"></div>
+                                                        </div>
+
+                                                        <div class="uk-margin">
+                                                            <div class="uk-position-relative uk-text-emphasis">
+                                                                Apellido Materno:
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="uk-margin">
+                                                            <div id="Materno" class="uk-position-relative uk-background-muted uk-padding-small"></div>
+                                                        </div>
+
+                                                        <div class="uk-margin">
+                                                            <div class="uk-position-relative uk-text-emphasis">
+                                                                Periodo:
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="uk-margin">
+                                                            <div id="Periodo" class="uk-position-relative uk-background-muted uk-padding-small"></div>
+                                                        </div>
+
+                                                        
+                                                        <div class="uk-margin">
+                                                            <div class="uk-position-relative uk-text-emphasis">
+                                                                Calificaciones:
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="uk-margin">
+                                                            <div id="Calificaciones" class="uk-position-relative uk-background-muted uk-padding-large">
+                                                            </div>
+                                                        </div>
+
+                                                    </div>
+
+                                                    <div class="uk-modal-footer uk-text-right">
+                                                        <button class="uk-button uk-button-primary uk-modal-close" type="button">Vale</button>
+                                                    </div>
+
+                                        </div>
+                                    </div>                                  
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="uk-width-1-1@s uk-width-1-2@l uk-width-1-1@xl"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+</div>

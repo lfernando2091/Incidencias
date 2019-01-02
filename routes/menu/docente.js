@@ -54,7 +54,7 @@ router.get('/', function(req, res, next){
 router.get('/src/:gap', function(req, res, next){
 
 	if (!req.session || !req.session.authenticated || !req.isAuthenticated())
-            	return res.render('./403', { status: 403, title: 'No autorizado' });
+    	return res.render('./403', { status: 403, title: 'No autorizado' });
 
 	if(req.params.gap != '' && req.params.gap!= null){
 
@@ -66,7 +66,8 @@ router.get('/src/:gap', function(req, res, next){
 		    //var base64Image = new Buffer(data, 'binary').toString('base64');
 		    
 		    //var imgSrcString  = 'data:image/'+path.extname(req.params.gap).split('.').pop()+';base64,'+ base64Image;
-
+		    res.set('Cache-Control', 'public, max-age=300, s-maxage=600');
+		    
 		    res.writeHead(200, {'Content-Type': 'image/'+path.extname(req.params.gap).split('.').pop() });
 		    return res.end(data, 'binary');
 

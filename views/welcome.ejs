@@ -10,11 +10,19 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
         <link rel="stylesheet" type="text/css" href="css/uikit.min.css" />
-		<link rel="stylesheet" type="text/css" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+
+		<!--<link rel="stylesheet" type="text/css" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">-->
+        <link rel="stylesheet" type="text/css" href="online/css/ionicons.min.css">
+
 		<link rel="stylesheet" type="text/css" href="css/style.css" />
         <link rel="stylesheet" type="text/css" href="css/notyf.min.css" />
-        <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.0.0-beta.35/css/uikit.min.css">
-        <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css">      
+
+        <!--<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.0.0-beta.35/css/uikit.min.css">-->
+        <link rel="stylesheet" type="text/css" href="online/css/uikit.min.css">
+
+        <!--<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css">-->   
+        <link rel="stylesheet" type="text/css" href="online/css/jquery.dataTables.min.css">
+
     </head>
     <body>
         <div uk-sticky class="uk-navbar-container tm-navbar-container uk-active">
@@ -62,7 +70,7 @@
                 </li>
                 <li><a href="/dashboard">Dashboard</a></li>
                 <li><a href="/docente_incidencia">Incidencia</a></li>
-                <li><a href="#">Calificaciones</a></li>                
+                <li><a href="/docente_calificacion">Calificaciones</a></li>                
 
                 <li class="uk-nav-header">
                     Catalogos
@@ -77,13 +85,13 @@
                 <li class="uk-nav-header">
                     Reportes
                 </li>
-                <li><a href="#">Calificaciones</a></li>
-	        <li><a href="#">Incidencia</a></li>
+                <li><a href="/reporte_docente_incidencia">Incidencia</a></li>
+                <li><a href="/reporte_calificaciones">Calificaciones</a></li>	            
             </ul>
         </div>
         <!-- Content -->
 
-        <% if(content == 'dashboard'){ %>
+        <% if(content == 'dashboard' || content == ''){ %>
             <%- include('./menu/dashboard'); -%>
         <% } %>
 
@@ -119,10 +127,35 @@
             <%- include('./menu/perfil'); -%>
         <% } %>
 
+        <% if(content == 'docente_calificacion'){ %>
+            <%- include('./menu/docente_calificacion'); -%>
+        <% } %>
+
+        <% if(content == 'docente_calificacion_criterio'){ %>
+            <%- include('./menu/docente_calificacion_criterio'); -%>
+        <% } %>
+
+        <% if(content == 'reporte_docente_incidencia'){ %>
+            <%- include('./reporte/incidencias'); -%>
+        <% } %>
+
+        <% if(content == 'docente_incidencia_filtro'){ %>
+            <%- include('./menu/docente_incidencia_filtro'); -%>
+        <% } %>
+
+        <% if(content == 'reporte_calificaciones'){ %>
+            <%- include('./reporte/calificaciones'); -%>
+        <% } %>
+
+        <% if(content == 'docente_calificacion_filtro'){ %>
+            <%- include('./menu/docente_calificacion_filtro'); -%>
+        <% } %>
+
         <!-- End Content -->
         
         <!-- JQuery -->
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+        <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>-->
+        <script type="text/javascript" src="online/js/jquery.min.js"></script>
 
         <% if(content == 'periodo' || 
             content == 'criterio' ||
@@ -131,30 +164,56 @@
             content == 'docente' ||
             content == 'usuario' ||
             content == 'docente_incidencia' ||
-            content == 'perfil'){ %>
+            content == 'perfil' ||
+            content == 'docente_calificacion' ||
+            content == 'docente_calificacion_criterio' ||
+            content == 'docente_incidencia_filtro' ||
+            content == 'docente_calificacion_filtro'){ %>
         <!-- Data Tables -->
-        <script type="text/javascript" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
-        <script type="text/javascript" src="https://cdn.datatables.net/1.10.19/js/dataTables.uikit.min.js"></script>
+
+        <!--<script type="text/javascript" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>-->
+        <script type="text/javascript" src="online/js/jquery.dataTables.min.js"></script>
+
+        <!--<script type="text/javascript" src="https://cdn.datatables.net/1.10.19/js/dataTables.uikit.min.js"></script>-->
+        <script type="text/javascript" src="online/js/dataTables.uikit.min.js"></script>
+
         <script type="text/javascript" src="js/data-table.js"></script>
         <script type="text/javascript" src="js/data-table-edit.js"></script>
         <% } %>
 
+        <!-- Uikit -->
         <script type="text/javascript" src="js/uikit.min.js" ></script>
         <!-- Uikit Icons -->
         <script type="text/javascript" src="js/uikit-icons.min.js" ></script>
-        <% if(content == 'dashboard'){ %>
+        <% if(content == 'dashboard' || content == ''){ %>
 		<!-- Load More Javascript -->
-        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.0/Chart.min.js" integrity="sha256-UGwvyUFH6Qqn0PSyQVw4q3vIX0wV1miKTracNJzAWPc=" crossorigin="anonymous"></script>
+
+        <!--<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.0/Chart.min.js" integrity="sha256-UGwvyUFH6Qqn0PSyQVw4q3vIX0wV1miKTracNJzAWPc=" crossorigin="anonymous"></script>-->
+        <script type="text/javascript" src="online/js/Chart.min.js"></script>
+
         <% } %>
-        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery.transit/0.9.12/jquery.transit.min.js" integrity="sha256-rqEXy4JTnKZom8mLVQpvni3QHbynfjPmPxQVsPZgmJY=" crossorigin="anonymous"></script>
+
+        <!--<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery.transit/0.9.12/jquery.transit.min.js" integrity="sha256-rqEXy4JTnKZom8mLVQpvni3QHbynfjPmPxQVsPZgmJY=" crossorigin="anonymous"></script>-->
+        <script type="text/javascript" src="online/js/jquery.transit.min.js"></script>
+
 		<script type="text/javascript" src="js/notyf.min.js"></script>
 		<!-- Required Overall Script -->
         <script type="text/javascript" src="js/script.js"></script>
 		<!-- Status Updater -->
 		<script type="text/javascript" src="js/status.js"></script>
-        <% if(content == 'dashboard'){ %>
+        <% if(content == 'dashboard' || content == ''){ %>
 		<!-- Sample Charts -->
 		<script type="text/javascript" src="js/charts.js"></script>
+        <% } %>
+        <% if(content == 'reporte_docente_incidencia' ||
+                content == 'reporte_calificaciones'){ %>
+        <!-- Date Picker Customised -->
+        <link rel="stylesheet" type="text/css" href="css/datepicker.min.css" />
+        <script type="text/javascript" src="js/datepicker.min.js"></script>
+        <script type="text/javascript" src="js/i18n/datepicker.es.js"></script>
+        <script>
+            $('.date-selector').val(new Date().toLocaleDateString('es-MX'));
+        </script>
         <% } %>
 		<!-- Sample Notifications -->
 		<script type="text/javascript" src="js/notification.js"></script>
@@ -185,4 +244,18 @@
             </script>
         <% } %> 
     </body>
+    <footer>
+        <div class="content-padder content-background">
+        <div class="uk-section-small uk-section-default header">
+                <div class="uk-container uk-container-small">
+                    <center>
+                    <h4><span class="ion-speedometer"></span> Doopy Media Inc</h4>
+                    </center>
+                    <p>
+                        La información presentada aqui es propia del usuario, así que el mal uso de esta es responsabilidad del mismo.
+                    </p>
+                </div>
+        </div>
+        </div>
+    </footer>
 </html>

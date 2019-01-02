@@ -33,24 +33,20 @@ router.get('/', function(req, res, next){
 	      var programa_educativo;
 
 	      mappers.loadMapper('/menu/docente');
-	      connection.query(mappers.onQuery('docente', 'listado', null), [], function(err, results) {
-	      	docentes = results;
-	      });
+	      connection.query(mappers.onQuery('docente', 'listado', null), [], function(err4, results4) {
+	      	docentes = results4;	      
 
 	      mappers.loadMapper('/menu/categoria_incidencia');
-	      connection.query(mappers.onQuery('categoria_incidencia', 'listado', null), [], function(err, results) {
-	      	categoria_incidencia = results;
-	      });
+	      connection.query(mappers.onQuery('categoria_incidencia', 'listado', null), [], function(err3, results3) {
+	      	categoria_incidencia = results3;	      
 
 	      mappers.loadMapper('/menu/periodo');
-	      connection.query(mappers.onQuery('periodo', 'listado', null), [], function(err, results) {
-	      	periodo = results;
-	      });
+	      connection.query(mappers.onQuery('periodo', 'listado', null), [], function(err2, results2) {
+	      	periodo = results2;	      
 
 	      mappers.loadMapper('/menu/programa_educativo');
-	      connection.query(mappers.onQuery('programa_educativo', 'listado', null), [], function(err, results) {
-	      	programa_educativo = results;
-	      });
+	      connection.query(mappers.onQuery('programa_educativo', 'listado', null), [], function(err1, results1) {
+	      	programa_educativo = results1;	      
 
 	      mappers.loadMapper('/menu/docente_incidencia');
 	      connection.query(mappers.onQuery('docente_incidencia', 'catalogo', null), [], function(err, results) {
@@ -72,6 +68,15 @@ router.get('/', function(req, res, next){
 			return res.redirect('/welcome'); 
 
 	      });
+
+	      });
+
+	      });
+
+	      });
+
+	      });
+
 	});
 });
 
@@ -110,10 +115,12 @@ router.post('/agregar', function(req, res, next){
 	        if (err) return next(err); 
 
 	    	mappers.loadMapper('/menu/docente');
-	        connection.query(mappers.onQuery('docente', 'docente_info', param), [], function(err, results2) {
+	        connection.query(mappers.onQuery('docente', 'docente_info', param), [], function(err2, results2) {
+	        	if (err2) return next(err2);
 
 	        	mappers.loadMapper('/menu/categoria_incidencia');
-	        	connection.query(mappers.onQuery('categoria_incidencia', 'categoria_incidencia_info', param), [], function(err, results3) {
+	        	connection.query(mappers.onQuery('categoria_incidencia', 'categoria_incidencia_info', param), [], function(err3, results3) {
+	        		if (err3) return next(err3);
 
 	        		SendEmail(
 		        	email,
@@ -216,6 +223,46 @@ router.post('/eliminar', function(req, res, next){
 			return res.redirect('/docente_incidencia'); 
 
 	      });
+	});
+});
+
+router.post('/filtro', function(req, res, next){
+	req.getConnection(function(err, connection) {
+	      if (err) return next(err);
+
+	      var msj = req.flash("mensaje");
+
+	      var modal = req.flash("modal");
+
+	      var modal_values = req.flash("modal-values");
+
+	      var alert = req.flash("alert");
+
+	      var isMyObjectEmpty = !Object.keys(msj).length;
+
+     	var param = { 
+		        id_docente: req.body.is_id_docente_b != 'on' ? '' : req.body.id_docente_b,
+		        id_categoria_incidencia : req.body.is_id_categoria_incidencia_b != 'on' ? '' : req.body.id_categoria_incidencia_b,
+		        id_periodo : req.body.is_id_periodo_b != 'on' ? '' : req.body.id_periodo_b,
+		        id_programa_educativo : req.body.is_id_programa_educativo_b != 'on' ? '' : req.body.id_programa_educativo_b,
+		        fecha_1 : req.body.is_fecha_b_1 != 'on' ? '' : req.body.fecha_b_1,
+		        fecha_2 : req.body.is_fecha_b_2 != 'on' ? '' : req.body.fecha_b_2
+		    } 
+
+	      mappers.loadMapper('/menu/docente_incidencia');
+	      connection.query(mappers.onQuery('docente_incidencia', 'listado', param), [], function(err, results) {
+	        if (err) return next(err); 
+	        req.flash('mensaje', isMyObjectEmpty ? '' : msj);
+	        req.flash('modal', (!Object.keys(modal).length) ? '' : modal);
+	        req.flash('modal-values', (!Object.keys(modal_values).length) ? '' : modal_values);
+	        req.flash('alert', (!Object.keys(alert).length) ? '' : alert);
+
+	        req.flash('results', (!Object.keys(results).length) ? '' : results);
+	        req.flash('content', 'docente_incidencia_filtro');
+			return res.redirect('/welcome'); 
+
+	      });
+
 	});
 });
 
