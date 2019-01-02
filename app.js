@@ -1,13 +1,13 @@
-var createError = require('http-errors');
-var express = require('express');
-var bodyParser = require('body-parser');
-var path = require('path');
-var cookieParser = require('cookie-parser');
-var logger = require('morgan');
-var fs = require('fs');
-var multer = require('multer');
+const createError = require('http-errors');
+const express = require('express');
+const bodyParser = require('body-parser');
+const path = require('path');
+const cookieParser = require('cookie-parser');
+const logger = require('morgan');
+const fs = require('fs');
+const multer = require('multer');
 
-var storage = multer.diskStorage({
+const storage = multer.diskStorage({
   destination: function (req, file, cb) {
     cb(null, 'temp/')
   },
@@ -16,45 +16,45 @@ var storage = multer.diskStorage({
   }
 })
 //csrf for request
-var csrf = require('csurf');
+const csrf = require('csurf');
 //Apply gzip compression for all request
-var compression = require('compression');
+const compression = require('compression');
 /*Call Mappers Controller*/
-var mappers = require('./lib/mappers.js');
+const mappers = require('./lib/mappers.js');
 mappers.loadMapper('login');
 /**
  * Express bcrypt for sometext
  */
-var bcrypt = require('bcrypt-nodejs');
+const bcrypt = require('bcrypt-nodejs');
 /**
  * Express Passport Controller
  */
-var passport = require('passport');
-var LocalStrategy = require('passport-local').Strategy;
+const passport = require('passport');
+const LocalStrategy = require('passport-local').Strategy;
 /**
  * Express UUID creator
  */
-var uuid = require('uuid/v4');
+const uuid = require('uuid/v4');
 /**
  * Express Session Controller
  */
-var session = require('express-session');
+const session = require('express-session');
 /**
  * Express Grant Middleware Controller
  */
-var grant = require('grant-express');
+const grant = require('grant-express');
 /**
  * Express MySql Middleware Session saver
  */
-var MySQLStore = require('express-mysql-session')(session);
+const MySQLStore = require('express-mysql-session')(session);
 /**
  * Express MySql
  */
-var MySql = require('mysql');
+const MySql = require('mysql');
 /**
  * Express MySql Middleware
  */
-var MySqlConnection = require('express-myconnection');
+const MySqlConnection = require('express-myconnection');
 /**
  * Express Validator Middleware for Form Validation
  */ 
@@ -67,7 +67,7 @@ var MySqlConnection = require('express-myconnection');
  req.sanitize('comment').escape(); // returns 'a &lt;span&gt;comment&lt;/span&gt;'
  req.sanitize('username').trim(); // returns 'a user'
  ********************************************/
-var expressValidator = require('express-validator');
+const expressValidator = require('express-validator');
 
 /**
  * This module shows flash messages
@@ -77,25 +77,23 @@ var expressValidator = require('express-validator');
  * So, we also have to install and use 
  * cookie-parser & session modules
  */ 
-var flash = require('express-flash');
+const flash = require('express-flash');
 
 /*Config Options For Grant*/
-var config = require('./config-grant.json');
+const config = require('./config-grant.json');
 
 /*Config Options For MySql Connection*/
-var options = require('./config-db-options.json');
-/*
+const options = require('./config-db-options.json');
 options.ssl =
 {
-    cat: fs.readFileSync(__dirname + '/certs/server-ca.pem'),
+    ca: fs.readFileSync(__dirname + '/certs/server-ca.pem'),
     key: fs.readFileSync(__dirname + '/certs/client-key.pem'),
     cert: fs.readFileSync(__dirname + '/certs/client-cert.pem')
 }
-*/
 
-var sessionStore = new MySQLStore(options);
+const sessionStore = new MySQLStore(options);
 
-var app = express();
+const app = express();
 
 const secretKey = '{Luis}*[Fernando2091]/@/';
 
@@ -228,6 +226,6 @@ app.use(function(err, req, res, next) {
   res.render('error');
 });
 
-//app.listen(8080);
+app.listen(8080);
 
 module.exports = app;
