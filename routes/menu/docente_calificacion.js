@@ -71,7 +71,8 @@ router.get('/', function(req, res, next){
 					        var result = new Array(
 					        	(!Object.keys(results).length) ? new Array() : results, 
 					        	(!Object.keys(docentes).length) ? new Array() : docentes,
-					        	(!Object.keys(periodo).length) ? new Array() : periodo
+					        	(!Object.keys(periodo).length) ? new Array() : periodo,
+					        	(!Object.keys(req.headers.host).length) ? new Array() : req.headers.host
 					        );
 
 					        req.flash('results', result);

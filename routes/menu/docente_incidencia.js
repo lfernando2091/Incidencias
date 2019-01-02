@@ -61,7 +61,8 @@ router.get('/', function(req, res, next){
 	        	(!Object.keys(docentes).length) ? new Array() : docentes,
 	        	(!Object.keys(categoria_incidencia).length) ? new Array() : categoria_incidencia,
 	        	(!Object.keys(periodo).length) ? new Array() : periodo,
-	        	(!Object.keys(programa_educativo).length) ? new Array() : programa_educativo
+	        	(!Object.keys(programa_educativo).length) ? new Array() : programa_educativo,
+	        	(!Object.keys(req.headers.host).length) ? new Array() : req.headers.host
 	        );
 	        req.flash('results', result);
 	        req.flash('content', 'docente_incidencia');

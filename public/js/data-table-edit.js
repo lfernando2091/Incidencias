@@ -38,7 +38,8 @@ function onTableDataView(e)
 					$("#" + key).html(data[key]);
 			}
 		   	else if($("#" + key)[0].tagName == 'IMG')
-		   		$("#" + key).attr("src","http://127.0.0.1:3000/docente/src/" + data[key]);	   	
+		   		$("#" + key).attr("src", 'http://' +  $("#" + key).attr('host') + "/docente/src/" + data[key]);	   	
+		   	
 	   	}catch(e){
 
 	   	}

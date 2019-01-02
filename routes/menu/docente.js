@@ -6,7 +6,7 @@ const mappers = require('../../lib/mappers.js');
 mappers.loadMapper('/menu/docente');
 
 const fs = require('fs');
-const path = require('path');
+const path = require('path'); 
 
 /* GET Periodo. */
 router.get('/', function(req, res, next){
@@ -43,7 +43,12 @@ router.get('/', function(req, res, next){
 			  	}
 			});
 */
-	        req.flash('results', (!Object.keys(results).length) ? '' : results);
+	        var result = new Array(
+	        	(!Object.keys(results).length) ? new Array() : results,
+	        	(!Object.keys(req.headers.host).length) ? new Array() : req.headers.host
+	        );
+	        
+	        req.flash('results', result);
 	        req.flash('content', 'docente');
 			return res.redirect('/welcome'); 
 
