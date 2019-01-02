@@ -205,8 +205,7 @@ app.use(function (req, res) {
   res.write('Sorry that page not exist:\n')
   res.end(JSON.stringify("Error 404", null, 2))
   */
-
-  //console.log(req.status);
+  res.set('Cache-Control', 'public, max-age=300, s-maxage=600');
   res.render('404', { status: 404, title: 'Error 404' });
 })
 
@@ -225,7 +224,5 @@ app.use(function(err, req, res, next) {
   res.status(err.status || 500);
   res.render('error');
 });
-
-app.listen(8080);
 
 module.exports = app;

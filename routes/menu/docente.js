@@ -66,7 +66,7 @@ router.get('/src/:gap', function(req, res, next){
 		fs.readFile('./temp/' + req.params.gap, (err, data)=>{
         
 			//error handle
-		    if(err) return res.render('./403', { status: 500, title: 'Imagen no localizada' });
+		    if(err) return res.render('./403', { status: 403, title: 'Elemento no localizado' });
 
 		    //var base64Image = new Buffer(data, 'binary').toString('base64');
 		    

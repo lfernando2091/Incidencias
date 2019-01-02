@@ -1,3 +1,35 @@
-<h1><%= message %></h1>
-<h2><%= error.status %></h2>
-<pre><%= error.stack %></pre>
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Error <%= error.status %></title>
+
+        <meta charset="UTF-8">
+        <meta name="description" content="Error General">
+        <meta name="keywords" content="ErrorGeneral,General,General">
+        <meta name="author" content="Luis Fernando Hernández Méndez">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <link rel="stylesheet" href="/css/uikit.min.css" />
+		<link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css"/>
+		<link rel="stylesheet" href="/css/style.css" />
+        <link rel="stylesheet" href="/css/notyf.min.css" />        
+    </head>
+    <body>
+        <div class="content-background">
+            <div class="uk-section-small">
+                <div class="uk-container uk-container-large">
+                    <div uk-grid class="uk-grid-collapse uk-grid-match uk-child-width-1-1@s uk-child-width-1-1@l">
+                        <div>
+                            <div class="uk-card uk-card-primary uk-card-body">
+                                <h1 class="uk-card-title"><%= message %></h1>
+                                <pre style="color: #666 !important; overflow: scroll;"><%= error.stack %></pre>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script src="/js/uikit.min.js" ></script>
+        <script src="/js/uikit-icons.min.js" ></script>
+    </body>
+</html>
